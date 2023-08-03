@@ -1,9 +1,9 @@
 import { Routes, Route } from "react-router-dom";
+import { IChildrenProp } from "../types";
 
-type PropsType = {
-  children: JSX.Element[] | JSX.Element;
-};
-const RoutesWithNotFound: React.FC<PropsType> = ({ children }: PropsType) => {
+const RoutesWithNotFound: React.FC<IChildrenProp> = ({
+  children,
+}: IChildrenProp) => {
   return (
     <Routes>
       {children}

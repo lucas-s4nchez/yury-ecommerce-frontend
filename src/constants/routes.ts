@@ -8,8 +8,8 @@ export const PRIVATE_ROUTES = {
   CART: "cart",
 };
 
-export const ADMIN_ROUTES = {
-  ADMIN: "admin",
-  HOME: "home",
+export const DASHBOARD_ROUTES = {
+  DASHBOARD: "dashboard",
+  GENERAL: "general",
   PRODUCTS: "products",
 };

@@ -1,16 +1,21 @@
+import { lazy } from "react";
 import { Route, Navigate } from "react-router-dom";
 import {
-  ADMIN_ROUTES,
+  DASHBOARD_ROUTES,
   PRIVATE_ROUTES,
   PUBLIC_ROUTES,
 } from "../constants/routes";
-import { RoutesWithNotFound } from "../helpers";
 import {
   AdminGuard,
   AuthenticatedGuard,
   NotAuthenticatedGuard,
 } from "../guards";
-import { Admin, Cart, Home, Login } from "../pages";
+import { RoutesWithNotFound } from "../shared";
+
+const Dashboard = lazy(() => import("../pages/Dashboard/Dashboard"));
+const Cart = lazy(() => import("../pages/Cart/Cart"));
+const Home = lazy(() => import("../pages/Home/Home"));
+const Login = lazy(() => import("../pages/Login/Login"));
 
 export const AppRoutes: React.FC = () => {
   return (
@@ -24,7 +29,10 @@ export const AppRoutes: React.FC = () => {
         <Route path={PRIVATE_ROUTES.CART} element={<Cart />} />
       </Route>
       <Route element={<AdminGuard />}>
-        <Route path={`${ADMIN_ROUTES.ADMIN}/*`} element={<Admin />} />
+        <Route
+          path={`${DASHBOARD_ROUTES.DASHBOARD}/*`}
+          element={<Dashboard />}
+        />
       </Route>
     </RoutesWithNotFound>
   );

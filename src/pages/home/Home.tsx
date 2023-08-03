@@ -1,3 +1,12 @@
-export const Home: React.FC = () => {
-  return <div>Home Page</div>;
+import { Header } from "../../components";
+
+const Home: React.FC = () => {
+  return (
+    <>
+      <Header />
+      <div>Home Page</div>;
+    </>
+  );
 };
+
+export default Home;

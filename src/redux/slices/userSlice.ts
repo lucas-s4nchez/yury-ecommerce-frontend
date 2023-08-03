@@ -1,32 +1,29 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { AuthState, UserRole } from "../../types";
+import { User } from "../../models/User";
 
-export enum RoleType {
-  ADMIN = "ADMIN",
-  USER = "USER",
-}
-export enum StatusType {
-  CHECKING = "CHECKING",
-  AUTHENTICATED = "AUTHENTICATED",
-  NOT_AUTHENTICATED = "NOT_AUTHENTICATED",
-}
-
-type UserType = {
-  name: string;
-  lastName: string;
-  email: string;
-  role: RoleType;
-};
-
-type initialStateType = {
-  status: StatusType;
+interface initialStateType {
+  status: AuthState;
   token: null | string;
-  user: null | UserType;
+  user: null | User;
+}
+
+export interface ILoginPayload {
+  token: string;
+  user: User;
+}
+
+const testUser: User = {
+  name: "Lucas",
+  lastName: "Sánchez",
+  email: "lucas@gmail.com",
+  role: UserRole.ADMIN,
 };
 
 const initialState: initialStateType = {
-  status: StatusType.CHECKING,
+  status: AuthState.AUTHENTICATED,
   token: null,
-  user: null,
+  user: testUser,
 };
 
 const userSlice = createSlice({
@@ -34,18 +31,18 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     onCheckingCredentials: (state) => {
-      state.status = StatusType.CHECKING;
+      state.status = AuthState.CHECKING;
       state.token = null;
       state.user = null;
     },
-    onLogin: (state, { payload }: PayloadAction<any>) => {
-      state.status = StatusType.AUTHENTICATED;
+    onLogin: (state, { payload }: PayloadAction<ILoginPayload>) => {
+      state.status = AuthState.AUTHENTICATED;
       state.token = payload.token;
       state.user = payload.user;
       localStorage.setItem("accessToken", payload.token);
     },
     onLogout: (state) => {
-      state.status = StatusType.NOT_AUTHENTICATED;
+      state.status = AuthState.NOT_AUTHENTICATED;
       state.token = null;
       state.user = null;
       localStorage.removeItem("accessToken");
