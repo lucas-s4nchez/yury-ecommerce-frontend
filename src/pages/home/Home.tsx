@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { getProducts } from "../../services/products.service";
 import { useAsync, useFetchAndLoad } from "../../hooks";
-import { Box } from "@mui/material";
+import { Hero } from "./components";
+import { Grid } from "@mui/material";
 
 const Home: React.FC = () => {
   const [products, setProducts] = useState({} as any);
@@ -16,10 +17,10 @@ const Home: React.FC = () => {
   useAsync(getApiData, adaptProducts, () => {});
 
   return (
-    <>
-      <Box sx={{ backgroundColor: "red" }}>Home Page</Box>
+    <Grid marginY={2}>
+      <Hero />
       <div>{loading ? "Cargando..." : JSON.stringify(products)}</div>
-    </>
+    </Grid>
   );
 };
 

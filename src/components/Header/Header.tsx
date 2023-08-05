@@ -43,7 +43,7 @@ export const Header: React.FC = () => {
             >
               <RouterLink to="/">
                 <Box sx={{ width: "120px", height: "100%", display: "flex" }}>
-                  <img src="src/assets/logo.svg" width="100%" />
+                  <img src="src/assets/logo.svg" width="100%" alt="Logo" />
                 </Box>
               </RouterLink>
               <Grid display="flex" alignItems="center">
@@ -65,7 +65,7 @@ export const Header: React.FC = () => {
                     color="inherit"
                     sx={{ padding: { xs: "5px", sm: "12px" } }}
                   >
-                    <Badge badgeContent={4} color="error">
+                    <Badge badgeContent={4} color="secondary">
                       <ShoppingBagIcon />
                     </Badge>
                   </IconButton>
