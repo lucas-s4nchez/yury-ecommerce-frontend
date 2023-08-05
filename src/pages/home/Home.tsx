@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { getProducts } from "../../services/products.service";
 import { useAsync, useFetchAndLoad } from "../../hooks";
-import { Hero } from "./components";
+import { HeroSection, InfoSection } from "./components";
 import { Grid } from "@mui/material";
 
 const Home: React.FC = () => {
@@ -18,7 +18,15 @@ const Home: React.FC = () => {
 
   return (
     <Grid marginY={2}>
-      <Hero />
+      <HeroSection />
+      <InfoSection />
+      {
+        //Todo: seccion de productos destacados.
+        //Todo: seccion tienda hombre | tienda mujer .
+        //Todo: seccion de categorías: urbanas, deportivas, de gala, casuales, etc.
+        //Todo:seccion con chamuyo para plantar arboles, por cada compra.
+        //Todo:seccion con reseñas de clientes.
+      }
       <div>{loading ? "Cargando..." : JSON.stringify(products)}</div>
     </Grid>
   );

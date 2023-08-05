@@ -1,1 +1,2 @@
-export * from "./Hero";
+export * from "./HeroSection";
+export * from "./InfoSection";

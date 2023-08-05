@@ -1,7 +1,7 @@
 import { Link as RouterLink } from "react-router-dom";
-import { Box, Button, Grid, Link, Paper, Typography } from "@mui/material";
+import { Button, Grid, Link, Paper, Typography } from "@mui/material";
 
-export const Hero: React.FC = () => {
+export const HeroSection: React.FC = () => {
   return (
     <Paper
       sx={{
@@ -21,7 +21,13 @@ export const Hero: React.FC = () => {
         justifyContent: "end",
       }}
     >
-      <Grid display="flex" direction="column" alignItems="start" gap={1}>
+      <Grid
+        container
+        display="flex"
+        direction="column"
+        alignItems="start"
+        gap={1}
+      >
         <Typography sx={{ fontSize: { xs: 20, md: 24 } }}>
           ¡Bienvenido a Yury!
         </Typography>
