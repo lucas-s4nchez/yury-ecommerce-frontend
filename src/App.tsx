@@ -1,13 +1,19 @@
-import { Button, Container } from "@mui/material";
+import { BrowserRouter } from "react-router-dom";
+import { ThemeConfig } from "./theme/ThemeProvider.tsx";
+import { AppRoutes } from "./router/AppRoutes.tsx";
+import { SnackbarUtilitiesConfigurator } from "./helpers/snackbarManager.ts";
+import { SnackbarProvider } from "notistack";
 
 function App() {
   return (
-    <Container maxWidth="xl">
-      <h1>Hola mundo</h1>
-      <Button variant="contained" onClick={() => console.log("hola")}>
-        Enviar
-      </Button>
-    </Container>
+    <BrowserRouter>
+      <ThemeConfig>
+        <SnackbarProvider>
+          <SnackbarUtilitiesConfigurator />
+          <AppRoutes />
+        </SnackbarProvider>
+      </ThemeConfig>
+    </BrowserRouter>
   );
 }
 

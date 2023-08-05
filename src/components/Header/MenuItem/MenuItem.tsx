@@ -22,6 +22,7 @@ export const MenuItem: React.FC<IMenuItemProps> = ({
         textDecoration: "none",
         display: "flex",
         alignItems: "center",
+        borderRadius: 2,
         gap: 1,
         width: "100%",
         color: "white",

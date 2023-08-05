@@ -1,5 +1,12 @@
 import { Link as RouterLink } from "react-router-dom";
-import { Drawer, Box, Divider, Typography, IconButton } from "@mui/material";
+import {
+  Drawer,
+  Box,
+  Divider,
+  Typography,
+  IconButton,
+  Grid,
+} from "@mui/material";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import { useAuthStore } from "../../../hooks";
@@ -52,13 +59,11 @@ export const Menu: React.FC<IMenuProps> = (props: IMenuProps) => {
                 padding: "12px",
               }}
             >
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  marginBottom: 2,
-                }}
+              <Grid
+                display="flex"
+                alignItems="center"
+                justifyContent="space-between"
+                marginBottom={2}
               >
                 <RouterLink to="/">
                   <Box sx={{ width: "120px", height: "100%", display: "flex" }}>
@@ -73,7 +78,7 @@ export const Menu: React.FC<IMenuProps> = (props: IMenuProps) => {
                     <CloseOutlinedIcon />
                   </IconButton>
                 </Box>
-              </Box>
+              </Grid>
 
               {isAuthenticated ? (
                 <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>

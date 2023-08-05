@@ -22,32 +22,68 @@ export const NotAuthenticatedMenu: React.FC<INotAuthenticatedMenuProps> = ({
 }: INotAuthenticatedMenuProps) => {
   return (
     <List>
-      <ListItem sx={{ padding: 0 }}>
-        <ListItemButton sx={{ padding: 0 }} onClick={handleOpenMenu}>
+      <ListItem
+        sx={{
+          padding: 0,
+          width: "90%",
+          margin: "auto",
+        }}
+      >
+        <ListItemButton
+          sx={{ padding: 0, justifyContent: "center", borderRadius: 2 }}
+          onClick={handleOpenMenu}
+        >
           <MenuItem redirectTo={"/home"} text="Inicio">
             <HomeOutlinedIcon sx={{ fontSize: 30 }} />
           </MenuItem>
         </ListItemButton>
       </ListItem>
 
-      <ListItem sx={{ padding: 0 }}>
-        <ListItemButton sx={{ padding: 0 }} onClick={handleOpenMenu}>
+      <ListItem
+        sx={{
+          padding: 0,
+          width: "90%",
+          margin: "auto",
+        }}
+      >
+        <ListItemButton
+          sx={{ padding: 0, justifyContent: "center", borderRadius: 2 }}
+          onClick={handleOpenMenu}
+        >
           <MenuItem redirectTo={"/mens"} text="Hombres">
             <MaleOutlinedIcon sx={{ fontSize: 30 }} />
           </MenuItem>
         </ListItemButton>
       </ListItem>
 
-      <ListItem sx={{ padding: 0 }}>
-        <ListItemButton sx={{ padding: 0 }} onClick={handleOpenMenu}>
+      <ListItem
+        sx={{
+          padding: 0,
+          width: "90%",
+          margin: "auto",
+        }}
+      >
+        <ListItemButton
+          sx={{ padding: 0, justifyContent: "center", borderRadius: 2 }}
+          onClick={handleOpenMenu}
+        >
           <MenuItem redirectTo={"/womens"} text="Mujeres">
             <FemaleOutlinedIcon sx={{ fontSize: 30 }} />
           </MenuItem>
         </ListItemButton>
       </ListItem>
 
-      <ListItem sx={{ padding: 0 }}>
-        <ListItemButton sx={{ padding: 0 }} onClick={handleOpenMenu}>
+      <ListItem
+        sx={{
+          padding: 0,
+          width: "90%",
+          margin: "auto",
+        }}
+      >
+        <ListItemButton
+          sx={{ padding: 0, justifyContent: "center", borderRadius: 2 }}
+          onClick={handleOpenMenu}
+        >
           <MenuItem redirectTo={"/featured"} text="Destacados">
             <StarBorderOutlinedIcon sx={{ fontSize: 30 }} />
           </MenuItem>
@@ -55,18 +91,36 @@ export const NotAuthenticatedMenu: React.FC<INotAuthenticatedMenuProps> = ({
       </ListItem>
 
       <Toolbar />
-      <Divider />
+      <Divider sx={{ marginBottom: 2 }} />
 
-      <ListItem sx={{ padding: 0 }}>
-        <ListItemButton sx={{ padding: 0 }} onClick={handleOpenMenu}>
+      <ListItem
+        sx={{
+          padding: 0,
+          width: "90%",
+          margin: "auto",
+        }}
+      >
+        <ListItemButton
+          sx={{ padding: 0, justifyContent: "center", borderRadius: 2 }}
+          onClick={handleOpenMenu}
+        >
           <MenuItem redirectTo={"/login"} text="Ingresá">
             <LoginOutlinedIcon sx={{ fontSize: 30 }} />
           </MenuItem>
         </ListItemButton>
       </ListItem>
 
-      <ListItem sx={{ padding: 0 }}>
-        <ListItemButton sx={{ padding: 0 }} onClick={handleOpenMenu}>
+      <ListItem
+        sx={{
+          padding: 0,
+          width: "90%",
+          margin: "auto",
+        }}
+      >
+        <ListItemButton
+          sx={{ padding: 0, justifyContent: "center", borderRadius: 2 }}
+          onClick={handleOpenMenu}
+        >
           <MenuItem redirectTo={"/register"} text="Resgístrate">
             <PersonAddAltOutlinedIcon sx={{ fontSize: 30 }} />
           </MenuItem>

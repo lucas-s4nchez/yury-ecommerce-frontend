@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { AuthState, UserRole } from "../../types";
-import { User } from "../../models/User";
+import { User } from "../../models";
 
 interface initialStateType {
   status: AuthState;

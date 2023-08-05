@@ -1,12 +1,11 @@
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import React from "react";
 import { darkTheme } from "./themes";
+import { IChildrenProp } from "../types";
 
-type ThemeProp = {
-  children: JSX.Element;
-};
-
-export const ThemeConfig: React.FC<ThemeProp> = ({ children }) => {
+export const ThemeConfig: React.FC<IChildrenProp> = ({
+  children,
+}: IChildrenProp) => {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
