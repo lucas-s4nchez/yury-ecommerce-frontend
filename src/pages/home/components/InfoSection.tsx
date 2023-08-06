@@ -1,58 +1,78 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Divider, Grid, Typography } from "@mui/material";
 import LocalShippingRoundedIcon from "@mui/icons-material/LocalShippingRounded";
-import PaymentRoundedIcon from "@mui/icons-material/PaymentRounded";
+import LockIcon from "@mui/icons-material/Lock";
 import SwapHorizRoundedIcon from "@mui/icons-material/SwapHorizRounded";
 
 export const InfoSection: React.FC = () => {
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: { xs: "column", sm: "row" },
-        justifyContent: "space-between",
-        marginBlock: 5,
-      }}
-    >
-      <Grid
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        gap={1}
-        padding={1}
+    <Box sx={{ marginBlock: 5 }}>
+      <Divider />
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-around",
+          paddingBlock: 1,
+          color: "GrayText",
+        }}
       >
-        <LocalShippingRoundedIcon sx={{ fontSize: 30 }} />
-        <Typography>Envío gratis</Typography>
-      </Grid>
+        <Grid
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          gap={1}
+          padding={1}
+        >
+          <LocalShippingRoundedIcon
+            sx={{ fontSize: { xs: 16, sm: 20, md: 24 } }}
+          />
+          <Typography sx={{ fontSize: { xs: 10, sm: 14, md: 16 } }}>
+            Envío gratis
+          </Typography>
+        </Grid>
 
-      <Box component="hr" sx={{ width: { xs: "100%", sm: "unset" } }} />
-
-      <Grid
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        gap={1}
-        padding={1}
-      >
-        <PaymentRoundedIcon
+        <Box
           sx={{
-            fontSize: 30,
+            borderTop: 1,
+            borderLeft: 1,
+            borderColor: "GrayText",
+            marginBlock: 1,
           }}
-        />
-        <Typography>Pagos seguros</Typography>
-      </Grid>
+        ></Box>
+        <Grid
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          gap={1}
+          padding={1}
+        >
+          <LockIcon sx={{ fontSize: { xs: 16, sm: 20, md: 24 } }} />
+          <Typography sx={{ fontSize: { xs: 10, sm: 14, md: 16 } }}>
+            Pagos seguros
+          </Typography>
+        </Grid>
 
-      <Box component="hr" sx={{ width: { xs: "100%", sm: "unset" } }} />
-
-      <Grid
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        gap={1}
-        padding={1}
-      >
-        <SwapHorizRoundedIcon sx={{ fontSize: 30 }} />
-        <Typography>Devolución gratis</Typography>
-      </Grid>
+        <Box
+          sx={{
+            borderTop: 1,
+            borderLeft: 1,
+            borderColor: "GrayText",
+            marginBlock: 1,
+          }}
+        ></Box>
+        <Grid
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          gap={1}
+          padding={1}
+        >
+          <SwapHorizRoundedIcon sx={{ fontSize: { xs: 16, sm: 20, md: 24 } }} />
+          <Typography sx={{ fontSize: { xs: 10, sm: 14, md: 16 } }}>
+            Devolución gratis
+          </Typography>
+        </Grid>
+      </Box>
+      <Divider />
     </Box>
   );
 };
