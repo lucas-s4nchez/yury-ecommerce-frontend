@@ -5,6 +5,7 @@ import {
   FeaturedProductsSection,
   HeroSection,
   InfoSection,
+  MenWomenShopSection,
 } from "./components";
 import { Grid } from "@mui/material";
 
@@ -25,8 +26,8 @@ const Home: React.FC = () => {
       <HeroSection />
       <InfoSection />
       <FeaturedProductsSection />
+      <MenWomenShopSection />
       {
-        //Todo: seccion tienda hombre | tienda mujer .
         //Todo: seccion de categorías: urbanas, deportivas, de gala, casuales, etc.
         //Todo:seccion con chamuyo para plantar arboles, por cada compra.
         //Todo:seccion con reseñas de clientes.
