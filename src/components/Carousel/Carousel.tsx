@@ -25,7 +25,7 @@ export const MultiCarousel: React.FC<IChildrenProp> = ({
   children,
 }: IChildrenProp) => {
   return (
-    <Box sx={{ paddingBottom: "30px", position: "relative" }}>
+    <Box sx={{ paddingBottom: "40px", position: "relative" }}>
       <Carousel
         responsive={responsive}
         swipeable={true}
@@ -38,7 +38,6 @@ export const MultiCarousel: React.FC<IChildrenProp> = ({
         partialVisbile={true}
         renderDotsOutside
         focusOnSelect={true}
-        // centerMode
         removeArrowOnDeviceType={["tablet", "mobile"]}
       >
         {children}
