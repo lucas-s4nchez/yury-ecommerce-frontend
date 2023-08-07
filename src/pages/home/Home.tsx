@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { getProducts } from "../../services/products.service";
 import { useAsync, useFetchAndLoad } from "../../hooks";
-import { FeaturedProducts, HeroSection, InfoSection } from "./components";
+import {
+  FeaturedProductsSection,
+  HeroSection,
+  InfoSection,
+} from "./components";
 import { Grid } from "@mui/material";
 
 const Home: React.FC = () => {
@@ -20,9 +24,8 @@ const Home: React.FC = () => {
     <Grid marginY={2}>
       <HeroSection />
       <InfoSection />
-      <FeaturedProducts />
+      <FeaturedProductsSection />
       {
-        //Todo: seccion de productos destacados.
         //Todo: seccion tienda hombre | tienda mujer .
         //Todo: seccion de categorías: urbanas, deportivas, de gala, casuales, etc.
         //Todo:seccion con chamuyo para plantar arboles, por cada compra.

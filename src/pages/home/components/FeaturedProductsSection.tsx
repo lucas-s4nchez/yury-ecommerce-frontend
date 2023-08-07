@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { MultiCarousel, ProductCard } from "../../../components";
 
-export const FeaturedProducts = () => {
+export const FeaturedProductsSection: React.FC = () => {
   return (
     <Box sx={{ marginBlock: 5 }}>
       <Typography
