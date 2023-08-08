@@ -25,7 +25,7 @@ export const FeaturedProductsSection: React.FC = () => {
     <Box sx={{ marginBlock: 5 }}>
       <Typography
         variant="h3"
-        sx={{ fontSize: { xs: 22, sm: 26 }, marginBlock: 3 }}
+        sx={{ fontSize: { xs: 20, sm: 24 }, marginBlock: 3 }}
       >
         Los más Destacados
       </Typography>

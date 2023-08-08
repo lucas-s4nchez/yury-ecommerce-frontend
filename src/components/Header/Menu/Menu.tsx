@@ -36,6 +36,7 @@ export const Menu: React.FC<IMenuProps> = (props: IMenuProps) => {
       >
         <Drawer
           container={container}
+          anchor="right"
           variant="temporary"
           open={openMenu}
           onClose={handleOpenMenu}
@@ -46,9 +47,6 @@ export const Menu: React.FC<IMenuProps> = (props: IMenuProps) => {
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
-            },
-            "& .css-iur3w5-MuiPaper-root-MuiDrawer-paper": {
-              backgroundImage: "none",
             },
           }}
         >

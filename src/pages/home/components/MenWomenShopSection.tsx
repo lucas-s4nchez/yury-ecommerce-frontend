@@ -2,7 +2,7 @@ import { Link as RouterLink } from "react-router-dom";
 import Grid from "@mui/material/Unstable_Grid2";
 import { Box, Typography, Button, Link } from "@mui/material";
 
-export const MenWomenShopSection = () => {
+export const MenWomenShopSection: React.FC = () => {
   return (
     <Grid container>
       <Grid xs={12} md={6}>

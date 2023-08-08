@@ -31,5 +31,12 @@ export const darkTheme: Theme = createTheme({
         },
       },
     },
+    MuiDrawer: {
+      styleOverrides: {
+        paper: {
+          backgroundImage: "none",
+        },
+      },
+    },
   },
 });

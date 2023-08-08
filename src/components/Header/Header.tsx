@@ -26,7 +26,7 @@ export const Header: React.FC = () => {
     <>
       <Box sx={{ flexGrow: 1 }}>
         <AppBar
-          position="static"
+          position="fixed"
           sx={{
             display: "flex",
             justifyContent: "center",

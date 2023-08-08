@@ -2,12 +2,14 @@ import { useState } from "react";
 import { getProducts } from "../../services/products.service";
 import { useAsync, useFetchAndLoad } from "../../hooks";
 import {
+  BannerSection,
+  CustomerReviewsSection,
   FeaturedProductsSection,
   HeroSection,
   InfoSection,
   MenWomenShopSection,
 } from "./components";
-import { Grid } from "@mui/material";
+import { Grid, Container } from "@mui/material";
 const Home: React.FC = () => {
   // const [products, setProducts] = useState({} as any);
   // const { loading, callEndpoint } = useFetchAndLoad();
@@ -22,13 +24,17 @@ const Home: React.FC = () => {
 
   return (
     <Grid marginY={2}>
-      <HeroSection />
-      <InfoSection />
-      <FeaturedProductsSection />
-      <MenWomenShopSection />
+      <Container maxWidth="lg">
+        <HeroSection />
+        <InfoSection />
+        <FeaturedProductsSection />
+        <MenWomenShopSection />
+      </Container>
+      <BannerSection />
+      <Container maxWidth="lg">
+        <CustomerReviewsSection />
+      </Container>
       {
-        //Todo: seccion de categorías: urbanas, deportivas, de gala, casuales, etc.
-        //Todo:seccion con chamuyo para plantar arboles, por cada compra.
         //Todo:seccion con reseñas de clientes.
       }
       {/* <div>{loading ? "Cargando..." : JSON.stringify(products)}</div> */}
