@@ -8,18 +8,17 @@ import {
   MenWomenShopSection,
 } from "./components";
 import { Grid } from "@mui/material";
-
 const Home: React.FC = () => {
-  const [products, setProducts] = useState({} as any);
-  const { loading, callEndpoint } = useFetchAndLoad();
+  // const [products, setProducts] = useState({} as any);
+  // const { loading, callEndpoint } = useFetchAndLoad();
 
-  const getApiData = async () => await callEndpoint(getProducts());
+  // const getApiData = async () => await callEndpoint(getProducts());
 
-  const adaptProducts = (data: any) => {
-    setProducts(data.data.products);
-  };
+  // const adaptProducts = (data: any) => {
+  //   setProducts(data.data.products);
+  // };
 
-  useAsync(getApiData, adaptProducts, () => {});
+  // useAsync(getApiData, adaptProducts, () => {});
 
   return (
     <Grid marginY={2}>
@@ -32,7 +31,7 @@ const Home: React.FC = () => {
         //Todo:seccion con chamuyo para plantar arboles, por cada compra.
         //Todo:seccion con reseñas de clientes.
       }
-      <div>{loading ? "Cargando..." : JSON.stringify(products)}</div>
+      {/* <div>{loading ? "Cargando..." : JSON.stringify(products)}</div> */}
     </Grid>
   );
 };
