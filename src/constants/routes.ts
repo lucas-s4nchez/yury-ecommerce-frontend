@@ -2,6 +2,7 @@ export const PUBLIC_ROUTES = {
   LOGIN: "auth/login",
   REGISTER: "auth/register",
   HOME: "home",
+  FEATURED: "featured",
 };
 
 export const PRIVATE_ROUTES = {

@@ -16,7 +16,6 @@ import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import { Menu } from "../";
 
 export const Header: React.FC = () => {
-  // const { totalItemsInCart } = useSelector((state) => state.user);
   const [openMenu, setOpenMenu] = useState<boolean>(false);
 
   const handleOpenMenu = (): void => {
