@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
+import { useFormik } from "formik";
 import {
   Box,
   Button,
@@ -10,42 +11,30 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import Google from "@mui/icons-material/Google";
 import EmailIcon from "@mui/icons-material/Email";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-
-import { useFormik } from "formik";
-import * as Yup from "yup";
 import { AuthLayout } from "../../components";
+import { LoginFormValues } from "./models";
+import { loginFormValidationSchema } from "../../helpers";
+
+const loginFormInitialValues: LoginFormValues = { email: "", password: "" };
 
 const Login: React.FC = () => {
-  const { getFieldProps, handleSubmit, errors, touched } = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-    },
-    validationSchema: Yup.object({
-      email: Yup.string()
-        .email("Correo electronico invalido")
-        .required("Campo requerido"),
-      password: Yup.string()
-        .min(6, "Minimo 6 caracteres")
-        .required("Campo requerido"),
-    }),
-    onSubmit: (values) => {
-      console.log(values);
-    },
-  });
+  const { getFieldProps, handleSubmit, errors, touched } =
+    useFormik<LoginFormValues>({
+      initialValues: loginFormInitialValues,
+      validationSchema: loginFormValidationSchema,
+      onSubmit: (values: LoginFormValues) => {
+        console.log(values);
+      },
+    });
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleMouseDownPassword = (event: React.ChangeEvent<any>) => {
     event.preventDefault();
-  };
-  const onGoogleSignIn = () => {
-    console.log("google");
   };
   const onRedirect = () => {
     console.log("redirect");
@@ -78,7 +67,7 @@ const Login: React.FC = () => {
                     ),
                   }}
                   {...getFieldProps("email")}
-                  error={!!(touched.email && errors.email)}
+                  error={touched.email && Boolean(errors.email)}
                   helperText={touched.email && errors.email}
                 />
               </Grid>
@@ -103,7 +92,7 @@ const Login: React.FC = () => {
                     ),
                   }}
                   {...getFieldProps("password")}
-                  error={!!(touched.password && errors.password)}
+                  error={touched.password && Boolean(errors.password)}
                   helperText={touched.password && errors.password}
                 />
               </Grid>
@@ -123,7 +112,7 @@ const Login: React.FC = () => {
                   component={RouterLink}
                   sx={{ fontSize: 14 }}
                   color="inherit"
-                  to={"/register"}
+                  to={"/auth/register"}
                 >
                   registrarse
                 </Link>

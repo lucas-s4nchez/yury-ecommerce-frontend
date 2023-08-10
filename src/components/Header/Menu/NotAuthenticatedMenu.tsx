@@ -104,7 +104,7 @@ export const NotAuthenticatedMenu: React.FC<INotAuthenticatedMenuProps> = ({
           sx={{ padding: 0, justifyContent: "center", borderRadius: 2 }}
           onClick={handleOpenMenu}
         >
-          <MenuItem redirectTo={"/login"} text="Ingresá">
+          <MenuItem redirectTo={"/auth/login"} text="Ingresá">
             <LoginOutlinedIcon sx={{ fontSize: 30 }} />
           </MenuItem>
         </ListItemButton>
