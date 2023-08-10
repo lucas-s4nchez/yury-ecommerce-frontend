@@ -46,7 +46,9 @@ export const HeroSection: React.FC = () => {
             to="/offers"
             component={RouterLink}
             sx={{
-              padding: 1,
+              paddingX: 4,
+              paddingY: 1,
+              width: "100%",
               textDecoration: "none",
               color: "black",
             }}
