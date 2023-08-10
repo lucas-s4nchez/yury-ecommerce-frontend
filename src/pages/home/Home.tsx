@@ -11,16 +11,16 @@ import {
 } from "./components";
 import { Grid, Container } from "@mui/material";
 const Home: React.FC = () => {
-  // const [products, setProducts] = useState({} as any);
-  // const { loading, callEndpoint } = useFetchAndLoad();
+  const [products, setProducts] = useState({} as any);
+  const { loading, callEndpoint } = useFetchAndLoad();
 
-  // const getApiData = async () => await callEndpoint(getProducts());
+  const getApiData = async () => await callEndpoint(getProducts());
 
-  // const adaptProducts = (data: any) => {
-  //   setProducts(data.data.products);
-  // };
+  const adaptProducts = (data: any) => {
+    setProducts(data.data.products);
+  };
 
-  // useAsync(getApiData, adaptProducts, () => {});
+  useAsync(getApiData, adaptProducts, () => {});
 
   return (
     <Grid marginY={2}>
@@ -34,10 +34,7 @@ const Home: React.FC = () => {
       <Container maxWidth="lg">
         <CustomerReviewsSection />
       </Container>
-      {
-        //Todo:seccion con reseñas de clientes.
-      }
-      {/* <div>{loading ? "Cargando..." : JSON.stringify(products)}</div> */}
+      <div>{loading ? "Cargando..." : JSON.stringify(products)}</div>
     </Grid>
   );
 };
