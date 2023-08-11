@@ -11,27 +11,21 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import PersonIcon from "@mui/icons-material/Person";
 import EmailIcon from "@mui/icons-material/Email";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { AuthLayout } from "../../components";
-import { RegisterFormValues } from "./models";
-import { registerFormValidationSchema } from "../../helpers";
+import { AuthLayout } from "../../../components";
+import { LoginFormValues } from "./models";
+import { loginFormValidationSchema } from "../../../helpers";
 
-const registerFormInitialValues: RegisterFormValues = {
-  name: "",
-  lastName: "",
-  email: "",
-  password: "",
-};
+const loginFormInitialValues: LoginFormValues = { email: "", password: "" };
 
-const Register: React.FC = () => {
+const Login: React.FC = () => {
   const { getFieldProps, handleSubmit, errors, touched } =
-    useFormik<RegisterFormValues>({
-      initialValues: registerFormInitialValues,
-      validationSchema: registerFormValidationSchema,
-      onSubmit: (values: RegisterFormValues) => {
+    useFormik<LoginFormValues>({
+      initialValues: loginFormInitialValues,
+      validationSchema: loginFormValidationSchema,
+      onSubmit: (values: LoginFormValues) => {
         console.log(values);
       },
     });
@@ -55,45 +49,9 @@ const Register: React.FC = () => {
         alignItems: "center",
       }}
     >
-      <AuthLayout title={"Registrarse"}>
+      <AuthLayout title={"Iniciar sesión"}>
         <form onSubmit={handleSubmit}>
           <Grid container>
-            <Grid item xs={12} sx={{ mt: 2 }}>
-              <TextField
-                label="Nombre"
-                type="text"
-                placeholder="Jhon"
-                fullWidth
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <PersonIcon />
-                    </InputAdornment>
-                  ),
-                }}
-                {...getFieldProps("name")}
-                error={touched.name && Boolean(errors.name)}
-                helperText={touched.name && errors.name}
-              />
-            </Grid>
-            <Grid item xs={12} sx={{ mt: 2 }}>
-              <TextField
-                label="Apellido"
-                type="text"
-                placeholder="Cena"
-                fullWidth
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <PersonIcon />
-                    </InputAdornment>
-                  ),
-                }}
-                {...getFieldProps("lastName")}
-                error={touched.lastName && Boolean(errors.lastName)}
-                helperText={touched.lastName && errors.lastName}
-              />
-            </Grid>
             <Grid item xs={12} sx={{ mt: 2 }}>
               <TextField
                 label="Correo"
@@ -140,22 +98,22 @@ const Register: React.FC = () => {
             <Grid container spacing={2} sx={{ mb: 2, mt: 1 }}>
               <Grid item xs={12}>
                 <Button type="submit" variant="contained" fullWidth>
-                  <Typography fontWeight={500}>Registrarse</Typography>
+                  <Typography fontWeight={500}>Iniciar sesion</Typography>
                 </Button>
               </Grid>
             </Grid>
             <Grid container direction="row" justifyContent="end">
               <Typography sx={{ mr: 1, fontSize: 14 }}>
-                ¿Ya tienes una cuenta?
+                ¿No tienes una cuenta?
               </Typography>
               <Link
                 onClick={onRedirect}
                 component={RouterLink}
                 sx={{ fontSize: 14 }}
                 color="inherit"
-                to={"/auth/login"}
+                to={"/auth/register"}
               >
-                Iniciar sesión
+                registrarse
               </Link>
             </Grid>
           </Grid>
@@ -164,4 +122,5 @@ const Register: React.FC = () => {
     </Box>
   );
 };
-export default Register;
+
+export default Login;

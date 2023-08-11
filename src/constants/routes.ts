@@ -1,8 +1,12 @@
 export const PUBLIC_ROUTES = {
-  LOGIN: "auth/login",
-  REGISTER: "auth/register",
   HOME: "home",
   FEATURED: "featured",
+};
+
+export const AUTH_ROUTES = {
+  AUTH: "auth",
+  LOGIN: "login",
+  REGISTER: "register",
 };
 
 export const PRIVATE_ROUTES = {

@@ -1,3 +1,4 @@
+export * from "./Auth";
 export * from "./Cart";
 export * from "./Dashboard/General";
 export * from "./Dashboard/Products";
@@ -5,7 +6,7 @@ export * from "./Dashboard";
 export * from "./Featured";
 export * from "./Home/components";
 export * from "./Home";
-export * from "./Login";
-export * from "./Login/models";
-export * from "./Register";
-export * from "./Register/models";
+export * from "./Auth/Login";
+export * from "./Auth/Login/models";
+export * from "./Auth/Register";
+export * from "./Auth/Register/models";
