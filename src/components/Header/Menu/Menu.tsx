@@ -1,45 +1,46 @@
 import { Link as RouterLink } from "react-router-dom";
 import {
-  Drawer,
   Box,
   Divider,
   Typography,
   IconButton,
   Grid,
+  SwipeableDrawer,
 } from "@mui/material";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-import { useAuthStore } from "../../../hooks";
+import { useAuthStore, useUiStore } from "../../../hooks";
 import { AuthenticatedMenu, NotAuthenticatedMenu } from "../";
 
 const drawerWidth = 280;
 
 interface IMenuProps {
   window?: () => Window;
-  openMenu: boolean;
-  handleOpenMenu: () => void;
 }
 
 export const Menu: React.FC<IMenuProps> = (props: IMenuProps) => {
-  const { window, openMenu, handleOpenMenu } = props;
+  const { window } = props;
   const { user, isAuthenticated, handleLogout } = useAuthStore();
+  const { isOpenMenu, handleCloseMenu, handleOpenMenu } = useUiStore();
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: openMenu ? "flex" : "none" }}>
+    <Box sx={{ display: isOpenMenu ? "flex" : "none" }}>
       <Box
         component="nav"
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
         aria-label="mailbox folders"
       >
-        <Drawer
+        <SwipeableDrawer
           container={container}
           anchor="right"
-          variant="temporary"
-          open={openMenu}
-          onClose={handleOpenMenu}
+          open={isOpenMenu}
+          transitionDuration={300}
+          onOpen={handleOpenMenu}
+          onClose={handleCloseMenu}
+          disableBackdropTransition={true}
           ModalProps={{
             keepMounted: true, // Better open performance on mobile.
           }}
@@ -70,7 +71,7 @@ export const Menu: React.FC<IMenuProps> = (props: IMenuProps) => {
                 </RouterLink>
                 <Box>
                   <IconButton
-                    onClick={handleOpenMenu}
+                    onClick={handleCloseMenu}
                     sx={{ color: "white.cream", padding: 1 }}
                   >
                     <CloseOutlinedIcon />
@@ -102,15 +103,12 @@ export const Menu: React.FC<IMenuProps> = (props: IMenuProps) => {
             </Box>
             <Divider />
             {isAuthenticated ? (
-              <AuthenticatedMenu
-                handleOpenMenu={handleOpenMenu}
-                handleLogout={handleLogout}
-              />
+              <AuthenticatedMenu handleLogout={handleLogout} />
             ) : (
-              <NotAuthenticatedMenu handleOpenMenu={handleOpenMenu} />
+              <NotAuthenticatedMenu />
             )}
           </Box>
-        </Drawer>
+        </SwipeableDrawer>
       </Box>
     </Box>
   );

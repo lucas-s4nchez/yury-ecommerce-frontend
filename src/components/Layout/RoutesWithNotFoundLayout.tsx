@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
-import { IChildrenProp } from "../types";
+import { IChildrenProp } from "../../types";
 
-const RoutesWithNotFound: React.FC<IChildrenProp> = ({
+export const RoutesWithNotFoundLayout: React.FC<IChildrenProp> = ({
   children,
 }: IChildrenProp) => {
   return (
@@ -11,4 +11,3 @@ const RoutesWithNotFound: React.FC<IChildrenProp> = ({
     </Routes>
   );
 };
-export default RoutesWithNotFound;

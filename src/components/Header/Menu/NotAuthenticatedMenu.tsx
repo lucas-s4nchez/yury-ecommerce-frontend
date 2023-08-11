@@ -12,14 +12,11 @@ import FemaleOutlinedIcon from "@mui/icons-material/FemaleOutlined";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
 import PersonAddAltOutlinedIcon from "@mui/icons-material/PersonAddAltOutlined";
+import { useUiStore } from "../../../hooks";
 
-interface INotAuthenticatedMenuProps {
-  handleOpenMenu: () => void;
-}
+export const NotAuthenticatedMenu: React.FC = () => {
+  const { handleCloseMenu } = useUiStore();
 
-export const NotAuthenticatedMenu: React.FC<INotAuthenticatedMenuProps> = ({
-  handleOpenMenu,
-}: INotAuthenticatedMenuProps) => {
   return (
     <List>
       <ListItem
@@ -31,7 +28,7 @@ export const NotAuthenticatedMenu: React.FC<INotAuthenticatedMenuProps> = ({
       >
         <ListItemButton
           sx={{ padding: 0, justifyContent: "center", borderRadius: 2 }}
-          onClick={handleOpenMenu}
+          onClick={handleCloseMenu}
         >
           <MenuItem redirectTo={"/home"} text="Inicio">
             <HomeOutlinedIcon sx={{ fontSize: 30 }} />
@@ -48,7 +45,7 @@ export const NotAuthenticatedMenu: React.FC<INotAuthenticatedMenuProps> = ({
       >
         <ListItemButton
           sx={{ padding: 0, justifyContent: "center", borderRadius: 2 }}
-          onClick={handleOpenMenu}
+          onClick={handleCloseMenu}
         >
           <MenuItem redirectTo={"/mens"} text="Hombres">
             <MaleOutlinedIcon sx={{ fontSize: 30 }} />
@@ -65,7 +62,7 @@ export const NotAuthenticatedMenu: React.FC<INotAuthenticatedMenuProps> = ({
       >
         <ListItemButton
           sx={{ padding: 0, justifyContent: "center", borderRadius: 2 }}
-          onClick={handleOpenMenu}
+          onClick={handleCloseMenu}
         >
           <MenuItem redirectTo={"/womens"} text="Mujeres">
             <FemaleOutlinedIcon sx={{ fontSize: 30 }} />
@@ -82,7 +79,7 @@ export const NotAuthenticatedMenu: React.FC<INotAuthenticatedMenuProps> = ({
       >
         <ListItemButton
           sx={{ padding: 0, justifyContent: "center", borderRadius: 2 }}
-          onClick={handleOpenMenu}
+          onClick={handleCloseMenu}
         >
           <MenuItem redirectTo={"/featured"} text="Destacados">
             <StarBorderOutlinedIcon sx={{ fontSize: 30 }} />
@@ -102,7 +99,7 @@ export const NotAuthenticatedMenu: React.FC<INotAuthenticatedMenuProps> = ({
       >
         <ListItemButton
           sx={{ padding: 0, justifyContent: "center", borderRadius: 2 }}
-          onClick={handleOpenMenu}
+          onClick={handleCloseMenu}
         >
           <MenuItem redirectTo={"/auth/login"} text="Ingresá">
             <LoginOutlinedIcon sx={{ fontSize: 30 }} />
@@ -119,7 +116,7 @@ export const NotAuthenticatedMenu: React.FC<INotAuthenticatedMenuProps> = ({
       >
         <ListItemButton
           sx={{ padding: 0, justifyContent: "center", borderRadius: 2 }}
-          onClick={handleOpenMenu}
+          onClick={handleCloseMenu}
         >
           <MenuItem redirectTo={"/auth/register"} text="Resgístrate">
             <PersonAddAltOutlinedIcon sx={{ fontSize: 30 }} />

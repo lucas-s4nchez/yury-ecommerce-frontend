@@ -15,16 +15,17 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import { useUiStore } from "../../../hooks";
 
 interface IAuthenticatedMenuProps {
-  handleOpenMenu: () => void;
   handleLogout: () => void;
 }
 
 export const AuthenticatedMenu: React.FC<IAuthenticatedMenuProps> = ({
-  handleOpenMenu,
   handleLogout,
 }: IAuthenticatedMenuProps) => {
+  const { handleCloseMenu } = useUiStore();
+
   return (
     <List>
       <ListItem
@@ -36,7 +37,7 @@ export const AuthenticatedMenu: React.FC<IAuthenticatedMenuProps> = ({
       >
         <ListItemButton
           sx={{ padding: 0, justifyContent: "center", borderRadius: 2 }}
-          onClick={handleOpenMenu}
+          onClick={handleCloseMenu}
         >
           <MenuItem redirectTo={"/home"} text="Inicio">
             <HomeOutlinedIcon sx={{ fontSize: 30 }} />
@@ -53,7 +54,7 @@ export const AuthenticatedMenu: React.FC<IAuthenticatedMenuProps> = ({
       >
         <ListItemButton
           sx={{ padding: 0, justifyContent: "center", borderRadius: 2 }}
-          onClick={handleOpenMenu}
+          onClick={handleCloseMenu}
         >
           <MenuItem redirectTo={"/mens"} text="Hombres">
             <MaleOutlinedIcon sx={{ fontSize: 30 }} />
@@ -70,7 +71,7 @@ export const AuthenticatedMenu: React.FC<IAuthenticatedMenuProps> = ({
       >
         <ListItemButton
           sx={{ padding: 0, justifyContent: "center", borderRadius: 2 }}
-          onClick={handleOpenMenu}
+          onClick={handleCloseMenu}
         >
           <MenuItem redirectTo={"/womens"} text="Mujeres">
             <FemaleOutlinedIcon sx={{ fontSize: 30 }} />
@@ -87,7 +88,7 @@ export const AuthenticatedMenu: React.FC<IAuthenticatedMenuProps> = ({
       >
         <ListItemButton
           sx={{ padding: 0, justifyContent: "center", borderRadius: 2 }}
-          onClick={handleOpenMenu}
+          onClick={handleCloseMenu}
         >
           <MenuItem redirectTo={"/featured"} text="Destacados">
             <StarBorderOutlinedIcon sx={{ fontSize: 30 }} />
@@ -104,7 +105,7 @@ export const AuthenticatedMenu: React.FC<IAuthenticatedMenuProps> = ({
       >
         <ListItemButton
           sx={{ padding: 0, justifyContent: "center", borderRadius: 2 }}
-          onClick={handleOpenMenu}
+          onClick={handleCloseMenu}
         >
           <MenuItem redirectTo={"/favorites"} text="Favoritos">
             <FavoriteBorderOutlinedIcon sx={{ fontSize: 30 }} />
@@ -121,7 +122,7 @@ export const AuthenticatedMenu: React.FC<IAuthenticatedMenuProps> = ({
       >
         <ListItemButton
           sx={{ padding: 0, justifyContent: "center", borderRadius: 2 }}
-          onClick={handleOpenMenu}
+          onClick={handleCloseMenu}
         >
           <MenuItem redirectTo={"/purchases"} text="Mis compras">
             <ShoppingBagOutlinedIcon sx={{ fontSize: 30 }} />
@@ -138,7 +139,7 @@ export const AuthenticatedMenu: React.FC<IAuthenticatedMenuProps> = ({
       >
         <ListItemButton
           sx={{ padding: 0, justifyContent: "center", borderRadius: 2 }}
-          onClick={handleOpenMenu}
+          onClick={handleCloseMenu}
         >
           <MenuItem redirectTo={"/account"} text="Mi cuenta">
             <ManageAccountsOutlinedIcon sx={{ fontSize: 30 }} />
@@ -162,7 +163,10 @@ export const AuthenticatedMenu: React.FC<IAuthenticatedMenuProps> = ({
             borderRadius: 2,
             padding: "8px 16px",
           }}
-          onClick={handleLogout}
+          onClick={() => {
+            handleCloseMenu();
+            handleLogout();
+          }}
         >
           <LogoutOutlinedIcon sx={{ fontSize: 30 }} />
           <Typography

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { getProducts } from "../../services/products.service";
 import { useAsync, useFetchAndLoad } from "../../hooks";
 import {

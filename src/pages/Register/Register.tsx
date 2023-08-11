@@ -48,7 +48,7 @@ const Register: React.FC = () => {
   return (
     <Box
       sx={{
-        // minHeight: "50vh",
+        minHeight: "50vh",
         marginBlock: 5,
         display: "flex",
         justifyContent: "center",

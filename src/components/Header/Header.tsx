@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import {
   AppBar,
@@ -14,13 +13,11 @@ import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import { Menu } from "../";
+import { useUiStore } from "../../hooks";
 
 export const Header: React.FC = () => {
-  const [openMenu, setOpenMenu] = useState<boolean>(false);
+  const { handleOpenMenu } = useUiStore();
 
-  const handleOpenMenu = (): void => {
-    setOpenMenu(!openMenu);
-  };
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -83,7 +80,7 @@ export const Header: React.FC = () => {
           </Toolbar>
         </AppBar>
       </Box>
-      <Menu openMenu={openMenu} handleOpenMenu={handleOpenMenu} />
+      <Menu />
     </>
   );
 };

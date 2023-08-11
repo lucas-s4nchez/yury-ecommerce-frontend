@@ -1,4 +1,3 @@
-import { lazy } from "react";
 import { Route, Navigate } from "react-router-dom";
 import {
   DASHBOARD_ROUTES,
@@ -10,20 +9,13 @@ import {
   AuthenticatedGuard,
   NotAuthenticatedGuard,
 } from "../guards";
-import { RoutesWithNotFound } from "../shared";
-import { Layout } from "../components";
-
-const Dashboard = lazy(() => import("../pages/Dashboard/Dashboard"));
-const Cart = lazy(() => import("../pages/Cart/Cart"));
-const Home = lazy(() => import("../pages/Home/Home"));
-const Featured = lazy(() => import("../pages/Featured/Featured"));
-const Login = lazy(() => import("../pages/Login/Login"));
-const Register = lazy(() => import("../pages/Register/Register"));
+import { Layout, RoutesWithNotFoundLayout } from "../components";
+import { Cart, Dashboard, Featured, Home, Login, Register } from "../pages";
 
 export const AppRoutes: React.FC = () => {
   return (
     <Layout>
-      <RoutesWithNotFound>
+      <RoutesWithNotFoundLayout>
         <Route path="/" element={<Navigate to={PUBLIC_ROUTES.HOME} />} />
         <Route path={PUBLIC_ROUTES.HOME} element={<Home />} />
         <Route path={PUBLIC_ROUTES.FEATURED} element={<Featured />} />
@@ -42,7 +34,7 @@ export const AppRoutes: React.FC = () => {
             element={<Dashboard />}
           />
         </Route>
-      </RoutesWithNotFound>
+      </RoutesWithNotFoundLayout>
     </Layout>
   );
 };
