@@ -9,9 +9,11 @@ export const useAsync = (
 ) => {
   useEffect(() => {
     let isActive = true; //Inicializa el componente
+
     asyncFn().then((result) => {
       if (isActive) successFunction(result.data); //ejecuta la funcion asincrona si el componente esta activo
     });
+
     return () => {
       returnFunction && returnFunction(); //si existe una funcion de retorno, la ejecuta
       isActive = false;

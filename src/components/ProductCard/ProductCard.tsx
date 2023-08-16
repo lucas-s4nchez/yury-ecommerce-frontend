@@ -8,22 +8,34 @@ import {
   Typography,
 } from "@mui/material";
 
-export const ProductCard = () => {
+interface IProductProp {
+  name: string;
+  price: number;
+  images: string[];
+  brand: string;
+}
+
+export const ProductCard = (props: IProductProp) => {
   return (
-    <Card sx={{ maxWidth: 350, marginX: 1 }}>
+    <Card sx={{ width: "100%" }}>
       <CardActionArea>
         <CardMedia
           component="img"
-          height="140"
-          image="src/assets/hero.jpg"
-          alt="green iguana"
+          height={200}
+          image={
+            props.images.length
+              ? props.images[0]
+              : `https://res.cloudinary.com/daz0uw1rn/image/upload/v1692075597/yury-ecommerce/assets/pkucaglcoo9be8ger4pb.png`
+          }
+          alt={props.name}
+          sx={{ minWidth: "100%" }}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            Lizard dsadsan asjd sdjad
+            {props.name}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            $1.200,00
+            {props.price}
           </Typography>
         </CardContent>
       </CardActionArea>
