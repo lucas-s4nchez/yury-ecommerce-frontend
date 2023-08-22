@@ -39,7 +39,7 @@ export const Header: React.FC = () => {
             >
               <RouterLink to="/">
                 <Box sx={{ width: "120px", height: "100%", display: "flex" }}>
-                  <img src="src/assets/logo.svg" width="100%" alt="Logo" />
+                  <img src="../src/assets/logo.svg" width="100%" alt="Logo" />
                 </Box>
               </RouterLink>
               <Grid display="flex" alignItems="center">

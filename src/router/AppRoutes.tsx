@@ -11,16 +11,7 @@ import {
   NotAuthenticatedGuard,
 } from "../guards";
 import { Layout, RoutesWithNotFoundLayout } from "../components";
-import {
-  Cart,
-  Dashboard,
-  Featured,
-  Home,
-  Auth,
-  Men,
-  Women,
-  Collections,
-} from "../pages";
+import { Cart, Dashboard, Home, Auth, Collections } from "../pages";
 
 export const AppRoutes: React.FC = () => {
   return (
@@ -28,10 +19,10 @@ export const AppRoutes: React.FC = () => {
       <RoutesWithNotFoundLayout>
         <Route path="/" element={<Navigate to={PUBLIC_ROUTES.HOME} />} />
         <Route path={PUBLIC_ROUTES.HOME} element={<Home />} />
-        <Route path={PUBLIC_ROUTES.COLLECTIONS} element={<Collections />} />
-        <Route path={PUBLIC_ROUTES.MEN} element={<Men />} />
-        <Route path={PUBLIC_ROUTES.WOMEN} element={<Women />} />
-        <Route path={PUBLIC_ROUTES.FEATURED} element={<Featured />} />
+        <Route
+          path={`${PUBLIC_ROUTES.COLLECTIONS}/*`}
+          element={<Collections />}
+        />
 
         <Route element={<NotAuthenticatedGuard />}>
           <Route path={`${AUTH_ROUTES.AUTH}/*`} element={<Auth />} />

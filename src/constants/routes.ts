@@ -1,6 +1,7 @@
 export const PUBLIC_ROUTES = {
   HOME: "home",
   COLLECTIONS: "collections",
+  ALL_COLLECTIONS: "all",
   MEN: "men",
   WOMEN: "women",
   FEATURED: "featured",
