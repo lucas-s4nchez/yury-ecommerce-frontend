@@ -1,17 +1,20 @@
 import { useState } from "react";
+import { SelectChangeEvent } from "@mui/material";
 import { useAsync, useFetchAndLoad } from "../../../hooks";
 import { getProducts } from "../../../services";
 import { createProductAdapter } from "../../../adapters";
 import { CollectionLayout } from "../../../components";
+import { OrderType } from "../../../models";
 
 export const AllCollections: React.FC = () => {
   const [products, setProducts] = useState({} as any);
   const { loading, callEndpoint } = useFetchAndLoad();
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(0);
+  const [order, setOrder] = useState(OrderType.ASC);
 
   const getProductsData = async () => {
-    const result = await callEndpoint(getProducts(page));
+    const result = await callEndpoint(getProducts(page, order));
     return result;
   };
 
@@ -32,7 +35,11 @@ export const AllCollections: React.FC = () => {
     setPage(value);
   };
 
-  useAsync(getProductsData, adaptProducts, () => {}, [page]);
+  const handleChangeOrder = (event: SelectChangeEvent) => {
+    setOrder(event.target.value as OrderType);
+  };
+
+  useAsync(getProductsData, adaptProducts, () => {}, [page, order]);
 
   return (
     <CollectionLayout
@@ -40,7 +47,9 @@ export const AllCollections: React.FC = () => {
       loading={loading}
       page={page}
       count={count}
+      order={order}
       handleChangePage={handleChangePage}
+      handleChangeOrder={handleChangeOrder}
     />
   );
 };
