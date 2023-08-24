@@ -20,3 +20,29 @@ export const getFeaturedProducts = (page: number = 1) => {
     controller,
   };
 };
+
+export const getMenProducts = (page: number = 1) => {
+  const controller = loadAbortAxios();
+  return {
+    call: axios.get(
+      `http://localhost:8080/api/products?page=${page}&gender=MAN`,
+      {
+        signal: controller.signal,
+      }
+    ),
+    controller,
+  };
+};
+
+export const getWomenProducts = (page: number = 1) => {
+  const controller = loadAbortAxios();
+  return {
+    call: axios.get(
+      `http://localhost:8080/api/products?page=${page}&gender=WOMAN`,
+      {
+        signal: controller.signal,
+      }
+    ),
+    controller,
+  };
+};

@@ -56,7 +56,7 @@ export const AuthenticatedMenu: React.FC<IAuthenticatedMenuProps> = ({
           sx={{ padding: 0, justifyContent: "center", borderRadius: 2 }}
           onClick={handleCloseMenu}
         >
-          <MenuItem redirectTo={"/men"} text="Hombres">
+          <MenuItem redirectTo={"collections/men"} text="Hombres">
             <MaleOutlinedIcon sx={{ fontSize: 30 }} />
           </MenuItem>
         </ListItemButton>
@@ -73,7 +73,7 @@ export const AuthenticatedMenu: React.FC<IAuthenticatedMenuProps> = ({
           sx={{ padding: 0, justifyContent: "center", borderRadius: 2 }}
           onClick={handleCloseMenu}
         >
-          <MenuItem redirectTo={"/women"} text="Mujeres">
+          <MenuItem redirectTo={"collections/women"} text="Mujeres">
             <FemaleOutlinedIcon sx={{ fontSize: 30 }} />
           </MenuItem>
         </ListItemButton>
@@ -90,7 +90,7 @@ export const AuthenticatedMenu: React.FC<IAuthenticatedMenuProps> = ({
           sx={{ padding: 0, justifyContent: "center", borderRadius: 2 }}
           onClick={handleCloseMenu}
         >
-          <MenuItem redirectTo={"/featured"} text="Destacados">
+          <MenuItem redirectTo={"collections/featured"} text="Destacados">
             <StarBorderOutlinedIcon sx={{ fontSize: 30 }} />
           </MenuItem>
         </ListItemButton>

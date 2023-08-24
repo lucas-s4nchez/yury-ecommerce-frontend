@@ -1,10 +1,8 @@
 import { useState } from "react";
-import { Container, Box, Grid, Pagination, Alert } from "@mui/material";
-
 import { useAsync, useFetchAndLoad } from "../../../hooks";
 import { getFeaturedProducts } from "../../../services";
 import { createProductAdapter } from "../../../adapters";
-import { ProductCard, ProductSkeleton } from "../../../components";
+import { CollectionLayout } from "../../../components";
 
 export const Featured: React.FC = () => {
   const { loading, callEndpoint } = useFetchAndLoad();
@@ -28,7 +26,7 @@ export const Featured: React.FC = () => {
   };
 
   const handleChangePage = (
-    event: React.ChangeEvent<unknown>,
+    _event: React.ChangeEvent<unknown>,
     value: number
   ) => {
     setPage(value);
@@ -37,43 +35,12 @@ export const Featured: React.FC = () => {
   useAsync(getFeaturedProductsData, adaptFeaturedProducts, () => {}, [page]);
 
   return (
-    <Container maxWidth="lg">
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          marginBlock: 5,
-        }}
-      >
-        {loading ? (
-          <ProductSkeleton />
-        ) : featuredProducts.length >= 1 ? (
-          <>
-            <Grid container marginBottom={3} spacing={2}>
-              {featuredProducts?.map((product: any) => (
-                <Grid item xs={12} sm={6} md={4} lg={3} key={product.id}>
-                  <Box sx={{ display: "flex", justifyContent: "center" }}>
-                    <ProductCard {...product} />
-                  </Box>
-                </Grid>
-              ))}
-            </Grid>
-            <Pagination
-              count={count}
-              page={page}
-              onChange={handleChangePage}
-              variant="outlined"
-              color="primary"
-            />
-          </>
-        ) : (
-          <Alert variant="filled" severity="info" sx={{ width: "100%" }}>
-            No hay productos por el momento
-          </Alert>
-        )}
-      </Box>
-    </Container>
+    <CollectionLayout
+      collection={featuredProducts}
+      loading={loading}
+      page={page}
+      count={count}
+      handleChangePage={handleChangePage}
+    />
   );
 };
