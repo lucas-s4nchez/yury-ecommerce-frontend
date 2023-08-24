@@ -1,17 +1,20 @@
 import { useState } from "react";
+import { SelectChangeEvent } from "@mui/material";
 import { useAsync, useFetchAndLoad } from "../../../hooks";
 import { getWomenProducts } from "../../../services";
 import { createProductAdapter } from "../../../adapters";
 import { CollectionLayout } from "../../../components";
+import { OrderType } from "../../../models";
 
 export const Women: React.FC = () => {
   const { loading, callEndpoint } = useFetchAndLoad();
   const [womenProducts, setWomenProducts] = useState([] as any);
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(0);
+  const [order, setOrder] = useState(OrderType.ASC);
 
   const getWomenProductsData = async () => {
-    const result = await callEndpoint(getWomenProducts(page));
+    const result = await callEndpoint(getWomenProducts(page, order));
     return result;
   };
 
@@ -32,7 +35,11 @@ export const Women: React.FC = () => {
     setPage(value);
   };
 
-  useAsync(getWomenProductsData, adaptWomenProducts, () => {}, [page]);
+  const handleChangeOrder = (event: SelectChangeEvent) => {
+    setOrder(event.target.value as OrderType);
+  };
+
+  useAsync(getWomenProductsData, adaptWomenProducts, () => {}, [page, order]);
 
   return (
     <CollectionLayout
@@ -40,7 +47,9 @@ export const Women: React.FC = () => {
       loading={loading}
       page={page}
       count={count}
+      order={order}
       handleChangePage={handleChangePage}
+      handleChangeOrder={handleChangeOrder}
     />
   );
 };

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { loadAbortAxios } from "../helpers";
+import { GenderType, OrderType } from "../models";
 
 export const getProducts = (page: number = 1) => {
   const controller = loadAbortAxios();
@@ -25,7 +26,7 @@ export const getMenProducts = (page: number = 1) => {
   const controller = loadAbortAxios();
   return {
     call: axios.get(
-      `http://localhost:8080/api/products?page=${page}&gender=MAN`,
+      `http://localhost:8080/api/searchProducts?page=${page}&gender=${GenderType.MAN}`,
       {
         signal: controller.signal,
       }
@@ -34,11 +35,14 @@ export const getMenProducts = (page: number = 1) => {
   };
 };
 
-export const getWomenProducts = (page: number = 1) => {
+export const getWomenProducts = (
+  page: number = 1,
+  order: OrderType = OrderType.ASC
+) => {
   const controller = loadAbortAxios();
   return {
     call: axios.get(
-      `http://localhost:8080/api/products?page=${page}&gender=WOMAN`,
+      `http://localhost:8080/api/searchProducts?page=${page}&gender=${GenderType.WOMAN}&order=${order}`,
       {
         signal: controller.signal,
       }
