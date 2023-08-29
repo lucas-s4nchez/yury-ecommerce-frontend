@@ -2,7 +2,7 @@ import { TypeWithKey } from "../types";
 
 export const getValidationError = (errorCode: any) => {
   const codeMatcher: TypeWithKey<string> = {
-    ERR_NETWORK: "Error en la conexión con el servidor",
+    ERR_NETWORK: "Falló la conexión con el servidor",
     ERR_TIMEOUT: "Se acabó el tiempo",
     ERR_CANCEL: "Se canceló la petición",
     ERR_UNKNOWN: "Error desconocido",

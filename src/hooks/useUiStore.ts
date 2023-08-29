@@ -1,4 +1,4 @@
-import { closeMenu, openMenu } from "../redux/slices/uiSlice";
+import { closeMenu, openMenu } from "../redux/states/uiSlice";
 import { useAppDispatch, useAppSelector } from "./useStore";
 
 export const useUiStore = () => {

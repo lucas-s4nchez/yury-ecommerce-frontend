@@ -3,7 +3,7 @@ import {
   onCheckingCredentials,
   onLogin,
   onLogout,
-} from "../redux/slices/userSlice";
+} from "../redux/states/userSlice";
 import { AuthState } from "../types";
 import { useAppDispatch, useAppSelector } from "./useStore";
 

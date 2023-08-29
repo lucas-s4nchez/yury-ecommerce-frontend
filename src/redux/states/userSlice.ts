@@ -14,7 +14,7 @@ export interface ILoginPayload {
 }
 
 const testUser: User = {
-  name: "Lucas",
+  name: "Lucas Emir",
   lastName: "Sánchez",
   email: "lucas@gmail.com",
   role: UserRole.ADMIN,

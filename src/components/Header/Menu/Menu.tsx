@@ -6,11 +6,12 @@ import {
   IconButton,
   Grid,
   SwipeableDrawer,
+  Avatar,
 } from "@mui/material";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import { useAuthStore, useUiStore } from "../../../hooks";
 import { AuthenticatedMenu, NotAuthenticatedMenu } from "../";
+import { stringToColor } from "../../../helpers";
 
 const drawerWidth = 280;
 
@@ -86,12 +87,16 @@ export const Menu: React.FC<IMenuProps> = (props: IMenuProps) => {
                       textAlign: "center",
                     }}
                   >
-                    <AccountCircleOutlinedIcon sx={{ fontSize: "56px" }} />
+                    {user && (
+                      <Avatar sx={{ bgcolor: stringToColor(user.name) }}>
+                        {`${user.name.split(" ")[0][0]}`}
+                      </Avatar>
+                    )}
                   </Box>
                   <Box>
                     <Typography>Bienvenid@,</Typography>
                     <Typography sx={{ fontSize: "20px" }}>
-                      {!!user && `${user.name}`}
+                      {!!user && `${user.name.split(" ")[0]}`}
                     </Typography>
                   </Box>
                 </Box>
