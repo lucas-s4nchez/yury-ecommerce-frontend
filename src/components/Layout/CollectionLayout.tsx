@@ -9,7 +9,6 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  SelectChangeEvent,
   useTheme,
   useMediaQuery,
   Button,
@@ -17,41 +16,57 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  IconButton,
+  Chip,
+  Stack,
 } from "@mui/material";
 import TuneIcon from "@mui/icons-material/Tune";
+import RestartAltIcon from "@mui/icons-material/RestartAlt";
+import CloseIcon from "@mui/icons-material/Close";
+
 import { ProductCard, ProductSkeleton } from "..";
 import { OrderType } from "../../models";
 import { useState } from "react";
+import { useFetchCategories, useFetchProducts } from "../../hooks";
+import { getCategoryList } from "../../services";
 
 interface ICollectionLayoutProps {
-  collection: Array<any>;
-  loading: boolean;
-  count: number;
-  page: number;
-  order: OrderType;
-  handleChangePage: (event: React.ChangeEvent<unknown>, value: number) => void;
-  handleChangeOrder: (event: SelectChangeEvent) => void;
+  axiosRequest: () => void;
 }
 
 export const CollectionLayout: React.FC<ICollectionLayoutProps> = ({
-  collection,
-  loading,
-  count,
-  page,
-  order,
-  handleChangePage,
-  handleChangeOrder,
+  axiosRequest,
 }: ICollectionLayoutProps) => {
-  const [open, setOpen] = useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const [openModal, setOpenModal] = useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const {
+    isLoadingProducts,
+    products,
+    currentProductPage,
+    totalProductPages,
+    productOrder,
+    productBrand,
+    productCategory,
+    handleChangeCurrentProductPage,
+    handleChangeProductOrder,
+    handleChangeProductBrand,
+    handleResetProductBrand,
+    handleChangeProductCategory,
+    handleResetProductCategory,
+    handleResetAllProductFilters,
+  } = useFetchProducts(axiosRequest);
+
+  const { isLoadingCategories, categories } =
+    useFetchCategories(getCategoryList);
+
+  const handleOpenModal = () => {
+    setOpenModal(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleCloseModal = () => {
+    setOpenModal(false);
   };
 
   return (
@@ -65,21 +80,66 @@ export const CollectionLayout: React.FC<ICollectionLayoutProps> = ({
           marginBlock: 5,
         }}
       >
-        <Button
-          variant="contained"
-          endIcon={<TuneIcon />}
-          onClick={handleClickOpen}
-        >
-          Filtrar
-        </Button>
+        {!isLoadingProducts && (
+          <>
+            <Box sx={{ minWidth: 120, alignSelf: "end" }}>
+              <Button
+                variant="contained"
+                endIcon={<TuneIcon />}
+                onClick={handleOpenModal}
+              >
+                Filtrar
+              </Button>
+            </Box>
+            <Stack
+              direction="row"
+              flexWrap="wrap"
+              gap={1}
+              spacing={1}
+              sx={{ width: "100%", marginBlock: 2 }}
+            >
+              {productBrand && (
+                <Chip
+                  label={productBrand}
+                  color="default"
+                  variant="filled"
+                  onDelete={handleResetProductBrand}
+                  sx={{ margin: 0 }}
+                />
+              )}
+              {productCategory && (
+                <Chip
+                  label={productCategory}
+                  color="default"
+                  variant="filled"
+                  onDelete={handleResetProductCategory}
+                  sx={{ margin: 0 }}
+                />
+              )}
+            </Stack>
+          </>
+        )}
+
         <Dialog
           fullScreen={fullScreen}
           scroll="paper"
-          open={open}
-          onClose={handleClose}
+          open={openModal}
+          onClose={handleCloseModal}
           aria-labelledby="filtros"
         >
           <DialogTitle marginBottom={2}>Filtrar por</DialogTitle>
+          <IconButton
+            aria-label="close"
+            onClick={handleCloseModal}
+            sx={{
+              position: "absolute",
+              right: 8,
+              top: 8,
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
           <DialogContent
             sx={{
               display: "flex",
@@ -92,46 +152,67 @@ export const CollectionLayout: React.FC<ICollectionLayoutProps> = ({
               <Select
                 labelId="order-select-label"
                 id="order-select"
-                value={order}
+                value={productOrder}
                 label="Ordernar por"
-                onChange={handleChangeOrder}
+                onChange={handleChangeProductOrder}
                 sx={{ minWidth: { sm: 350 } }}
               >
                 <MenuItem value={OrderType.ASC}>Menor precio</MenuItem>
                 <MenuItem value={OrderType.DESC}>Mayor precio</MenuItem>
               </Select>
             </FormControl>
+
+            <FormControl fullWidth sx={{ marginBlock: 1 }}>
+              <InputLabel id="brand-select-label">Marcas</InputLabel>
+              <Select
+                labelId="brand-select-label"
+                id="brand-select"
+                value={productBrand}
+                label="Marcas"
+                onChange={handleChangeProductBrand}
+                sx={{ minWidth: { sm: 350 } }}
+              >
+                <MenuItem value={"adidas"}>Adidas</MenuItem>
+                <MenuItem value={"nike"}>Nike</MenuItem>
+              </Select>
+            </FormControl>
+
+            <FormControl fullWidth sx={{ marginBlock: 1 }}>
+              <InputLabel id="category-select-label">Categorias</InputLabel>
+              <Select
+                labelId="category-select-label"
+                id="category-select"
+                value={productCategory}
+                label="Categorias"
+                onChange={handleChangeProductCategory}
+                sx={{ minWidth: { sm: 350 } }}
+              >
+                {!isLoadingCategories &&
+                  categories.map((category: any) => (
+                    <MenuItem key={category.id} value={category.name}>
+                      {category.name}
+                    </MenuItem>
+                  ))}
+              </Select>
+            </FormControl>
           </DialogContent>
           <DialogActions>
-            <Button autoFocus onClick={handleClose}>
-              Disagree
-            </Button>
-            <Button onClick={handleClose} autoFocus>
-              Agree
+            <Button
+              onClick={handleResetAllProductFilters}
+              autoFocus
+              variant="contained"
+            >
+              Reiniciar filtros <RestartAltIcon />
             </Button>
           </DialogActions>
         </Dialog>
-        {loading ? (
+
+        {isLoadingProducts ? (
           <ProductSkeleton />
-        ) : collection.length >= 1 ? (
+        ) : products.length >= 1 ? (
           <>
-            <Box sx={{ minWidth: 120, alignSelf: "end", marginBottom: 2 }}>
-              <FormControl fullWidth>
-                <InputLabel id="order-select-label">Ordenar</InputLabel>
-                <Select
-                  labelId="order-select-label"
-                  id="order-select"
-                  value={order}
-                  label="Ordernar"
-                  onChange={handleChangeOrder}
-                >
-                  <MenuItem value={OrderType.ASC}>A-Z</MenuItem>
-                  <MenuItem value={OrderType.DESC}>Z-A</MenuItem>
-                </Select>
-              </FormControl>
-            </Box>
             <Grid container marginBottom={3} spacing={2}>
-              {collection?.map((product: any) => (
+              {products?.map((product: any) => (
                 <Grid item xs={12} sm={6} md={4} lg={3} key={product.id}>
                   <Box sx={{ display: "flex", justifyContent: "center" }}>
                     <ProductCard {...product} />
@@ -140,9 +221,9 @@ export const CollectionLayout: React.FC<ICollectionLayoutProps> = ({
               ))}
             </Grid>
             <Pagination
-              count={count}
-              page={page}
-              onChange={handleChangePage}
+              count={totalProductPages}
+              page={currentProductPage}
+              onChange={handleChangeCurrentProductPage}
               variant="outlined"
               color="primary"
             />
