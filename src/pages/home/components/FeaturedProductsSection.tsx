@@ -1,10 +1,8 @@
 import { Alert, Box, Skeleton, Typography } from "@mui/material";
 import { ResponsiveType } from "react-multi-carousel";
 import { MultiCarousel, ProductCard } from "../../../components";
-import { useState } from "react";
-import { useAsync, useFetchAndLoad } from "../../../hooks";
+import { useFetchProducts } from "../../../hooks";
 import { getFeaturedProducts } from "../../../services/products.service";
-import { createProductAdapter } from "../../../adapters";
 
 const breakpoints: ResponsiveType = {
   desktop: {
@@ -46,24 +44,7 @@ const SkeletonLoader: React.FC = () => {
 };
 
 export const FeaturedProductsSection: React.FC = () => {
-  const [featuredProducts, setFeaturedProducts] = useState([] as any);
-  const { loading, callEndpoint } = useFetchAndLoad();
-
-  const getFeaturedProductsData = async () => {
-    const result = await callEndpoint(getFeaturedProducts());
-    return result;
-  };
-
-  const adaptFeaturedProducts = (data: any) => {
-    if (data) {
-      const formattedProducts = data.data.products.map((product: any) =>
-        createProductAdapter(product)
-      );
-      setFeaturedProducts(formattedProducts);
-    }
-  };
-
-  useAsync(getFeaturedProductsData, adaptFeaturedProducts, () => {}, []);
+  const { isLoadingProducts, products } = useFetchProducts(getFeaturedProducts);
 
   return (
     <Box sx={{ marginBlock: 5 }}>
@@ -74,16 +55,16 @@ export const FeaturedProductsSection: React.FC = () => {
         Los más Destacados
       </Typography>
 
-      {loading ? (
+      {isLoadingProducts ? (
         <SkeletonLoader />
-      ) : featuredProducts.length >= 1 ? (
+      ) : products.length >= 1 ? (
         <MultiCarousel
           breakpoints={breakpoints}
           infinite={false}
           autoplay={false}
           partialVisible={true}
         >
-          {featuredProducts?.map((product: any) => (
+          {products?.map((product: any) => (
             <Box
               key={product.id}
               sx={{ display: "flex", justifyContent: "center", padding: 1 }}

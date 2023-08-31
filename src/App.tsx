@@ -8,7 +8,7 @@ function App() {
   return (
     <BrowserRouter>
       <ThemeConfig>
-        <SnackbarProvider>
+        <SnackbarProvider maxSnack={1}>
           <SnackbarUtilitiesConfigurator />
           <AppRoutes />
         </SnackbarProvider>

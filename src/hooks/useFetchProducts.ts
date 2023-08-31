@@ -12,10 +12,13 @@ export const useFetchProducts = (axiosCallback: any) => {
   const [order, setOrder] = useState(OrderType.ASC);
   const [brand, setBrand] = useState("");
   const [category, setCategory] = useState("");
+  const [color, setColor] = useState("");
+  const [minPrice, setMinPrice] = useState<string>("");
+  const [maxPrice, setMaxPrice] = useState<string>("");
 
   const getProductsData = async () => {
     const result = await callEndpoint(
-      axiosCallback(page, order, brand, category)
+      axiosCallback(page, order, brand, category, color, minPrice, maxPrice)
     );
     return result;
   };
@@ -59,10 +62,37 @@ export const useFetchProducts = (axiosCallback: any) => {
     setCategory("");
   };
 
+  const handleChangeProductColor = (event: SelectChangeEvent) => {
+    setColor(event.target.value as string);
+  };
+
+  const handleResetProductColor = () => {
+    setColor("");
+  };
+
+  const handleChangeMinPrice = (event: SelectChangeEvent) => {
+    setMinPrice(event.target.value as string);
+  };
+
+  const handleResetMinPrice = () => {
+    setMinPrice("");
+  };
+
+  const handleChangeMaxPrice = (event: SelectChangeEvent) => {
+    setMaxPrice(event.target.value as string);
+  };
+
+  const handleResetMaxPrice = () => {
+    setMaxPrice("");
+  };
+
   const handleResetAllProductFilters = () => {
     setOrder(OrderType.ASC);
     setBrand("");
     setCategory("");
+    setColor("");
+    setMinPrice("");
+    setMaxPrice("");
   };
 
   useAsync(getProductsData, adaptProducts, () => {}, [
@@ -70,6 +100,9 @@ export const useFetchProducts = (axiosCallback: any) => {
     order,
     brand,
     category,
+    color,
+    minPrice,
+    maxPrice,
   ]);
 
   return {
@@ -80,12 +113,21 @@ export const useFetchProducts = (axiosCallback: any) => {
     productOrder: order,
     productBrand: brand,
     productCategory: category,
+    productColor: color,
+    minPrice,
+    maxPrice,
     handleChangeCurrentProductPage,
     handleChangeProductOrder,
     handleChangeProductBrand,
     handleResetProductBrand,
     handleChangeProductCategory,
     handleResetProductCategory,
+    handleChangeProductColor,
+    handleResetProductColor,
+    handleChangeMinPrice,
+    handleResetMinPrice,
+    handleChangeMaxPrice,
+    handleResetMaxPrice,
     handleResetAllProductFilters,
   };
 };

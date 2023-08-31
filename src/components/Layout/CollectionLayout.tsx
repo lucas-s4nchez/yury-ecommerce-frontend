@@ -19,6 +19,7 @@ import {
   IconButton,
   Chip,
   Stack,
+  SelectChangeEvent,
 } from "@mui/material";
 import TuneIcon from "@mui/icons-material/Tune";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
@@ -27,12 +28,21 @@ import CloseIcon from "@mui/icons-material/Close";
 import { ProductCard, ProductSkeleton } from "..";
 import { OrderType } from "../../models";
 import { useState } from "react";
-import { useFetchCategories, useFetchProducts } from "../../hooks";
-import { getCategoryList } from "../../services";
+import {
+  useFetchCategories,
+  useFetchColors,
+  useFetchProducts,
+} from "../../hooks";
+import { getBrandList, getCategoryList, getColorList } from "../../services";
+import { useFetchBrands } from "../../hooks/useFetchBrands";
+import { formatPrice } from "../../helpers";
 
 interface ICollectionLayoutProps {
   axiosRequest: () => void;
 }
+
+const minPrices = ["10000", "20000", "35000", "50000", "70000", "100000"];
+const maxPrices = ["40000", "60000", "80000", "100000", "120000", "150000"];
 
 export const CollectionLayout: React.FC<ICollectionLayoutProps> = ({
   axiosRequest,
@@ -49,17 +59,30 @@ export const CollectionLayout: React.FC<ICollectionLayoutProps> = ({
     productOrder,
     productBrand,
     productCategory,
+    productColor,
+    minPrice,
+    maxPrice,
     handleChangeCurrentProductPage,
     handleChangeProductOrder,
     handleChangeProductBrand,
     handleResetProductBrand,
     handleChangeProductCategory,
     handleResetProductCategory,
+    handleChangeProductColor,
+    handleResetProductColor,
+    handleChangeMinPrice,
+    handleResetMinPrice,
+    handleChangeMaxPrice,
+    handleResetMaxPrice,
     handleResetAllProductFilters,
   } = useFetchProducts(axiosRequest);
 
   const { isLoadingCategories, categories } =
     useFetchCategories(getCategoryList);
+
+  const { isLoadingBrands, brands } = useFetchBrands(getBrandList);
+
+  const { isLoadingColors, colors } = useFetchColors(getColorList);
 
   const handleOpenModal = () => {
     setOpenModal(true);
@@ -113,6 +136,33 @@ export const CollectionLayout: React.FC<ICollectionLayoutProps> = ({
                   color="default"
                   variant="filled"
                   onDelete={handleResetProductCategory}
+                  sx={{ margin: 0 }}
+                />
+              )}
+              {productColor && (
+                <Chip
+                  label={productColor}
+                  color="default"
+                  variant="filled"
+                  onDelete={handleResetProductColor}
+                  sx={{ margin: 0 }}
+                />
+              )}
+              {minPrice && (
+                <Chip
+                  label={`Desde ${formatPrice(Number(minPrice))}`}
+                  color="default"
+                  variant="filled"
+                  onDelete={handleResetMinPrice}
+                  sx={{ margin: 0 }}
+                />
+              )}
+              {maxPrice && (
+                <Chip
+                  label={`Hasta ${formatPrice(Number(maxPrice))}`}
+                  color="default"
+                  variant="filled"
+                  onDelete={handleResetMaxPrice}
                   sx={{ margin: 0 }}
                 />
               )}
@@ -172,8 +222,12 @@ export const CollectionLayout: React.FC<ICollectionLayoutProps> = ({
                 onChange={handleChangeProductBrand}
                 sx={{ minWidth: { sm: 350 } }}
               >
-                <MenuItem value={"adidas"}>Adidas</MenuItem>
-                <MenuItem value={"nike"}>Nike</MenuItem>
+                {!isLoadingBrands &&
+                  brands.map((brand: any) => (
+                    <MenuItem key={brand.id} value={brand.name}>
+                      {brand.name}
+                    </MenuItem>
+                  ))}
               </Select>
             </FormControl>
 
@@ -195,14 +249,81 @@ export const CollectionLayout: React.FC<ICollectionLayoutProps> = ({
                   ))}
               </Select>
             </FormControl>
+
+            <FormControl fullWidth sx={{ marginBlock: 1 }}>
+              <InputLabel id="color-select-label">Color</InputLabel>
+              <Select
+                labelId="color-select-label"
+                id="color-select"
+                value={productColor}
+                label="Color"
+                onChange={handleChangeProductColor}
+                sx={{ minWidth: { sm: 350 } }}
+              >
+                {!isLoadingColors &&
+                  colors.map((color: any) => (
+                    <MenuItem key={color.id} value={color.name}>
+                      <Typography sx={{ textTransform: "capitalize" }}>
+                        {color.name}
+                      </Typography>
+                      <Box
+                        sx={{
+                          width: "20px",
+                          height: "20px",
+                          bgcolor: `${color.hexCode}`,
+                          borderRadius: 100,
+                          marginLeft: 1,
+                        }}
+                      ></Box>
+                    </MenuItem>
+                  ))}
+              </Select>
+            </FormControl>
+
+            <FormControl fullWidth sx={{ marginBlock: 1 }}>
+              <InputLabel id="min-price-select-label">Precio mínimo</InputLabel>
+              <Select
+                labelId="min-price-select-label"
+                id="min-price-select"
+                value={minPrice}
+                label="Precio mínimo"
+                onChange={handleChangeMinPrice}
+                sx={{ minWidth: { sm: 350 } }}
+              >
+                {minPrices.map((price, index) => (
+                  <MenuItem key={index} value={price}>
+                    {formatPrice(Number(price))}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+            <FormControl fullWidth sx={{ marginBlock: 1 }}>
+              <InputLabel id="max-price-select-label">Precio máximo</InputLabel>
+              <Select
+                labelId="max-price-select-label"
+                id="max-price-select"
+                value={maxPrice}
+                label="Precio máximo"
+                onChange={handleChangeMaxPrice}
+                sx={{ minWidth: { sm: 350 } }}
+              >
+                {maxPrices.map((price, index) => (
+                  <MenuItem key={index} value={price}>
+                    {formatPrice(Number(price))}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </DialogContent>
           <DialogActions>
             <Button
               onClick={handleResetAllProductFilters}
               autoFocus
               variant="contained"
+              endIcon={<RestartAltIcon />}
             >
-              Reiniciar filtros <RestartAltIcon />
+              Reiniciar filtros
             </Button>
           </DialogActions>
         </Dialog>
