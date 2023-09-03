@@ -8,15 +8,16 @@ export const getProducts = (
   brand?: string,
   category?: string,
   color?: string,
+  size?: string,
   minPrice?: string,
   maxPrice?: string
 ) => {
   const controller = loadAbortAxios();
   return {
     call: axios.get(
-      `http://localhost:8080/api/searchProducts?page=${page}&order=${order}&brand=${brand}&category=${category}&color=${color}&minPrice=${Number(
-        minPrice
-      )}&maxPrice=${Number(maxPrice)}`,
+      `http://localhost:8080/api/searchProducts?page=${page}&order=${order}&brand=${brand}&category=${category}&color=${color}&size=${Number(
+        size
+      )}&minPrice=${Number(minPrice)}&maxPrice=${Number(maxPrice)}`,
       {
         signal: controller.signal,
       }
@@ -31,15 +32,16 @@ export const getFeaturedProducts = (
   brand?: string,
   category?: string,
   color?: string,
+  size?: string,
   minPrice?: string,
   maxPrice?: string
 ) => {
   const controller = loadAbortAxios();
   return {
     call: axios.get(
-      `http://localhost:8080/api/searchProducts?page=${page}&featured=${true}&order=${order}&brand=${brand}&category=${category}&color=${color}&minPrice=${Number(
-        minPrice
-      )}&maxPrice=${Number(maxPrice)}`,
+      `http://localhost:8080/api/searchProducts?page=${page}&featured=${true}&order=${order}&brand=${brand}&category=${category}&color=${color}&size=${Number(
+        size
+      )}&minPrice=${Number(minPrice)}&maxPrice=${Number(maxPrice)}`,
       {
         signal: controller.signal,
       }
@@ -54,6 +56,7 @@ export const getMenProducts = (
   brand?: string,
   category?: string,
   color?: string,
+  size?: string,
   minPrice?: string,
   maxPrice?: string
 ) => {
@@ -62,9 +65,9 @@ export const getMenProducts = (
     call: axios.get(
       `http://localhost:8080/api/searchProducts?page=${page}&gender=${
         GenderType.MAN
-      }&order=${order}&brand=${brand}&category=${category}&color=${color}&minPrice=${Number(
-        minPrice
-      )}&maxPrice=${Number(maxPrice)}`,
+      }&order=${order}&brand=${brand}&category=${category}&color=${color}&size=${Number(
+        size
+      )}&minPrice=${Number(minPrice)}&maxPrice=${Number(maxPrice)}`,
       {
         signal: controller.signal,
       }
@@ -79,6 +82,7 @@ export const getWomenProducts = (
   brand?: string,
   category?: string,
   color?: string,
+  size?: string,
   minPrice?: string,
   maxPrice?: string
 ) => {
@@ -87,9 +91,9 @@ export const getWomenProducts = (
     call: axios.get(
       `http://localhost:8080/api/searchProducts?page=${page}&gender=${
         GenderType.WOMAN
-      }&order=${order}&brand=${brand}&category=${category}&color=${color}&minPrice=${Number(
-        minPrice
-      )}&maxPrice=${Number(maxPrice)}`,
+      }&order=${order}&brand=${brand}&category=${category}&color=${color}&size=${Number(
+        size
+      )}&minPrice=${Number(minPrice)}&maxPrice=${Number(maxPrice)}`,
       {
         signal: controller.signal,
       }

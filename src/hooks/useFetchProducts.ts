@@ -13,12 +13,22 @@ export const useFetchProducts = (axiosCallback: any) => {
   const [brand, setBrand] = useState("");
   const [category, setCategory] = useState("");
   const [color, setColor] = useState("");
+  const [size, setSize] = useState("");
   const [minPrice, setMinPrice] = useState<string>("");
   const [maxPrice, setMaxPrice] = useState<string>("");
 
   const getProductsData = async () => {
     const result = await callEndpoint(
-      axiosCallback(page, order, brand, category, color, minPrice, maxPrice)
+      axiosCallback(
+        page,
+        order,
+        brand,
+        category,
+        color,
+        size,
+        minPrice,
+        maxPrice
+      )
     );
     return result;
   };
@@ -70,6 +80,14 @@ export const useFetchProducts = (axiosCallback: any) => {
     setColor("");
   };
 
+  const handleChangeProductSize = (event: SelectChangeEvent) => {
+    setSize(event.target.value as string);
+  };
+
+  const handleResetProductSize = () => {
+    setSize("");
+  };
+
   const handleChangeMinPrice = (event: SelectChangeEvent) => {
     setMinPrice(event.target.value as string);
   };
@@ -91,6 +109,7 @@ export const useFetchProducts = (axiosCallback: any) => {
     setBrand("");
     setCategory("");
     setColor("");
+    setSize("");
     setMinPrice("");
     setMaxPrice("");
   };
@@ -101,6 +120,7 @@ export const useFetchProducts = (axiosCallback: any) => {
     brand,
     category,
     color,
+    size,
     minPrice,
     maxPrice,
   ]);
@@ -114,6 +134,7 @@ export const useFetchProducts = (axiosCallback: any) => {
     productBrand: brand,
     productCategory: category,
     productColor: color,
+    productSize: size,
     minPrice,
     maxPrice,
     handleChangeCurrentProductPage,
@@ -124,6 +145,8 @@ export const useFetchProducts = (axiosCallback: any) => {
     handleResetProductCategory,
     handleChangeProductColor,
     handleResetProductColor,
+    handleChangeProductSize,
+    handleResetProductSize,
     handleChangeMinPrice,
     handleResetMinPrice,
     handleChangeMaxPrice,

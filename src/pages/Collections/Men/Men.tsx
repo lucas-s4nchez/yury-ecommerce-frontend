@@ -1,6 +1,6 @@
-import { CollectionLayout } from "../../../components";
+import { FilterableProductList } from "../../../components";
 import { getMenProducts } from "../../../services";
 
 export const Men: React.FC = () => {
-  return <CollectionLayout axiosRequest={getMenProducts} />;
+  return <FilterableProductList axiosRequest={getMenProducts} />;
 };

@@ -1,6 +1,6 @@
 import { getFeaturedProducts } from "../../../services";
-import { CollectionLayout } from "../../../components";
+import { FilterableProductList } from "../../../components";
 
 export const Featured: React.FC = () => {
-  return <CollectionLayout axiosRequest={getFeaturedProducts} />;
+  return <FilterableProductList axiosRequest={getFeaturedProducts} />;
 };
