@@ -8,14 +8,16 @@ import {
   Typography,
 } from "@mui/material";
 
-interface IProductProp {
+interface ISmallProductCardProp {
   name: string;
   price: number;
   images: string[];
   brand: string;
 }
 
-export const ProductCard = (props: IProductProp) => {
+export const SmallProductCard: React.FC<ISmallProductCardProp> = (
+  props: ISmallProductCardProp
+) => {
   return (
     <Card sx={{ width: "100%" }}>
       <CardActionArea>

@@ -1,6 +1,6 @@
 import { Alert, Box, Skeleton, Typography } from "@mui/material";
 import { ResponsiveType } from "react-multi-carousel";
-import { MultiCarousel, ProductCard } from "../../../components";
+import { MultiCarousel, SmallProductCard } from "../../../components";
 import { useFetchProducts } from "../../../hooks";
 import { getFeaturedProducts } from "../../../services/products.service";
 
@@ -69,7 +69,7 @@ export const FeaturedProductsSection: React.FC = () => {
               key={product.id}
               sx={{ display: "flex", justifyContent: "center", padding: 1 }}
             >
-              <ProductCard {...product} />
+              <SmallProductCard {...product} />
             </Box>
           ))}
         </MultiCarousel>

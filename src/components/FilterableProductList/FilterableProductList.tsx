@@ -13,9 +13,10 @@ import {
 import TuneIcon from "@mui/icons-material/Tune";
 
 import { ModalWithFilters } from "./";
-import { ProductCard, ProductSkeleton } from "..";
+import { ProductSkeleton } from "..";
 import { useFetchProducts } from "../../hooks";
 import { formatPrice } from "../../helpers";
+import { LargeProductCard } from "../ProductCards/LargeProductCard";
 
 interface IFilterableProductListProps {
   axiosRequest: () => void;
@@ -31,6 +32,7 @@ export const FilterableProductList: React.FC<IFilterableProductListProps> = ({
     products,
     currentProductPage,
     totalProductPages,
+    totalProducts,
     productOrder,
     productBrand,
     productCategory,
@@ -75,7 +77,15 @@ export const FilterableProductList: React.FC<IFilterableProductListProps> = ({
       >
         {!isLoadingProducts && (
           <>
-            <Box sx={{ minWidth: 120, alignSelf: "end" }}>
+            <Box
+              sx={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Typography fontSize={14}>{totalProducts} resultados</Typography>
               <Button
                 variant="contained"
                 endIcon={<TuneIcon />}
@@ -173,17 +183,17 @@ export const FilterableProductList: React.FC<IFilterableProductListProps> = ({
           <ProductSkeleton />
         ) : products.length >= 1 ? (
           <>
-            <Grid container marginBottom={3} spacing={2}>
+            <Grid container marginBottom={3} spacing={2} direction="column">
               {products?.map((product: any) => (
-                <Grid item xs={12} sm={6} md={4} lg={3} key={product.id}>
-                  <Box sx={{ display: "flex", justifyContent: "center" }}>
-                    <ProductCard {...product} />
-                  </Box>
+                <Grid item key={product.id}>
+                  <LargeProductCard {...product} />
                 </Grid>
               ))}
             </Grid>
             <Pagination
               count={totalProductPages}
+              siblingCount={0}
+              boundaryCount={1}
               page={currentProductPage}
               onChange={handleChangeCurrentProductPage}
               variant="outlined"

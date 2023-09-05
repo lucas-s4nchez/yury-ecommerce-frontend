@@ -9,6 +9,7 @@ export const useFetchProducts = (axiosCallback: any) => {
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+  const [totalProducts, setTotalProducts] = useState(0);
   const [order, setOrder] = useState(OrderType.ASC);
   const [brand, setBrand] = useState("");
   const [category, setCategory] = useState("");
@@ -39,9 +40,11 @@ export const useFetchProducts = (axiosCallback: any) => {
         createProductAdapter(product)
       );
       const totalPages = data.data.totalPages;
+      const totalProducts = data.data.count;
 
       setProducts(products);
       setTotalPages(totalPages);
+      setTotalProducts(totalProducts);
     }
   };
 
@@ -130,6 +133,7 @@ export const useFetchProducts = (axiosCallback: any) => {
     products,
     currentProductPage: page,
     totalProductPages: totalPages,
+    totalProducts,
     productOrder: order,
     productBrand: brand,
     productCategory: category,
