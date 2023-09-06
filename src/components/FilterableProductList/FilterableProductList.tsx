@@ -13,10 +13,9 @@ import {
 import TuneIcon from "@mui/icons-material/Tune";
 
 import { ModalWithFilters } from "./";
-import { ProductSkeleton } from "..";
+import { ProductSkeleton, SmallProductCard } from "..";
 import { useFetchProducts } from "../../hooks";
 import { formatPrice } from "../../helpers";
-import { LargeProductCard } from "../ProductCards/LargeProductCard";
 
 interface IFilterableProductListProps {
   axiosRequest: () => void;
@@ -183,10 +182,10 @@ export const FilterableProductList: React.FC<IFilterableProductListProps> = ({
           <ProductSkeleton />
         ) : products.length >= 1 ? (
           <>
-            <Grid container marginBottom={3} spacing={2} direction="column">
+            <Grid container marginBottom={3} spacing={2}>
               {products?.map((product: any) => (
-                <Grid item key={product.id}>
-                  <LargeProductCard {...product} />
+                <Grid item xs={12} sm={6} md={4} lg={3} key={product.id}>
+                  <SmallProductCard {...product} />
                 </Grid>
               ))}
             </Grid>

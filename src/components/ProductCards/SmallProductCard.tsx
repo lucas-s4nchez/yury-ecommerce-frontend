@@ -1,12 +1,11 @@
 import {
-  Button,
   Card,
   CardActionArea,
-  CardActions,
   CardContent,
   CardMedia,
   Typography,
 } from "@mui/material";
+import { formatPrice } from "../../helpers";
 
 interface ISmallProductCardProp {
   name: string;
@@ -32,20 +31,20 @@ export const SmallProductCard: React.FC<ISmallProductCardProp> = (
           alt={props.name}
           sx={{ minWidth: "100%" }}
         />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+        <CardContent sx={{ paddingY: 2 }}>
+          <Typography
+            gutterBottom
+            variant="h6"
+            component="div"
+            sx={{ textTransform: "capitalize" }}
+          >
             {props.name}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {props.price}
+          <Typography component="span" color="text.secondary" fontSize={24}>
+            {formatPrice(props.price)}
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          Share
-        </Button>
-      </CardActions>
     </Card>
   );
 };

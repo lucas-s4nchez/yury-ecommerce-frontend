@@ -43,7 +43,7 @@ export const HeroSection: React.FC = () => {
           }}
         >
           <Link
-            to="/offers"
+            to="/collections"
             component={RouterLink}
             sx={{
               paddingX: 4,

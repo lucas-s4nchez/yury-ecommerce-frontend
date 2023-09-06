@@ -34,7 +34,7 @@ export const MenWomenShopSection: React.FC = () => {
             }}
           >
             <Link
-              to="/womens"
+              to="/collections/women"
               component={RouterLink}
               sx={{
                 paddingX: 4,
@@ -80,7 +80,7 @@ export const MenWomenShopSection: React.FC = () => {
             }}
           >
             <Link
-              to="/mens"
+              to="/collections/men"
               component={RouterLink}
               sx={{
                 paddingX: 4,
