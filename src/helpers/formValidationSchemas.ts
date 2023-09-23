@@ -1,11 +1,17 @@
 import * as Yup from "yup";
+import { EmailRegex, PasswordValidationRegex } from "../constants";
 
 export const loginFormValidationSchema = Yup.object({
   email: Yup.string()
-    .email("Correo electronico invalido")
+    .matches(EmailRegex, "Correo electronico invalido")
     .required("Campo requerido"),
   password: Yup.string()
-    .min(6, "Minimo 6 caracteres")
+    .matches(
+      PasswordValidationRegex,
+      "La contraseña debe contener al menos una letra mayúscula, una letra minúscula y un número (sin acentos o caracteres especiales)"
+    )
+    .min(8, "La contraseña debe tener como mínimo 8 caracteres")
+    .max(20, "La contraseña debe tener como máximo 20 caracteres")
     .required("Campo requerido"),
 });
 

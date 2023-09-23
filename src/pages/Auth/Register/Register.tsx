@@ -16,8 +16,8 @@ import EmailIcon from "@mui/icons-material/Email";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { AuthLayout } from "../../../components";
-import { RegisterFormValues } from "./models";
 import { registerFormValidationSchema } from "../../../helpers";
+import { RegisterFormValues } from "../../../models";
 
 const registerFormInitialValues: RegisterFormValues = {
   name: "",

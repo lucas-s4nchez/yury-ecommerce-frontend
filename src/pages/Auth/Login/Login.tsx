@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { useFormik } from "formik";
 import {
@@ -15,18 +15,40 @@ import EmailIcon from "@mui/icons-material/Email";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { AuthLayout } from "../../../components";
-import { LoginFormValues } from "./models";
 import { loginFormValidationSchema } from "../../../helpers";
+import { useAuthStore, useFetchAndLoad } from "../../../hooks";
+import { loginUser } from "../../../services/auth.service";
+import { createUserAdapter } from "../../../adapters";
+import { LoginFormValues } from "../../../models";
 
 const loginFormInitialValues: LoginFormValues = { email: "", password: "" };
 
 const Login: React.FC = () => {
+  const { loading, callEndpoint } = useFetchAndLoad();
+  const { handleCheckingCredentials, handleLogin } = useAuthStore();
+
+  useEffect(() => {
+    if (loading) {
+      handleCheckingCredentials();
+    }
+  }, [loading]);
+
+  const onLoginUser = (loginData: any) => {
+    const { accessToken, user } = loginData.data;
+    const logedUser = createUserAdapter(user);
+
+    handleLogin({ accessToken, user: logedUser });
+  };
+
   const { getFieldProps, handleSubmit, errors, touched } =
     useFormik<LoginFormValues>({
       initialValues: loginFormInitialValues,
       validationSchema: loginFormValidationSchema,
-      onSubmit: (values: LoginFormValues) => {
-        console.log(values);
+      onSubmit: async (values: LoginFormValues) => {
+        const { data } = await callEndpoint(loginUser(values));
+        if (data) {
+          onLoginUser(data);
+        }
       },
     });
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -36,9 +58,7 @@ const Login: React.FC = () => {
   const handleMouseDownPassword = (event: React.ChangeEvent<any>) => {
     event.preventDefault();
   };
-  const onRedirect = () => {
-    console.log("redirect");
-  };
+
   return (
     <Box
       sx={{
@@ -107,7 +127,6 @@ const Login: React.FC = () => {
                 ¿No tienes una cuenta?
               </Typography>
               <Link
-                onClick={onRedirect}
                 component={RouterLink}
                 sx={{ fontSize: 14 }}
                 color="inherit"

@@ -8,15 +8,15 @@ import { AuthState } from "../types";
 import { useAppDispatch, useAppSelector } from "./useStore";
 
 export const useAuthStore = () => {
-  const { status, user, token } = useAppSelector((state) => state.user);
+  const { status, user, accessToken } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
 
   const handleCheckingCredentials = (): void => {
     dispatch(onCheckingCredentials());
   };
 
-  const handleLogin = ({ token, user }: ILoginPayload): void => {
-    dispatch(onLogin({ token, user }));
+  const handleLogin = ({ accessToken, user }: ILoginPayload): void => {
+    dispatch(onLogin({ accessToken, user }));
   };
 
   const handleLogout = (): void => {
@@ -28,7 +28,7 @@ export const useAuthStore = () => {
   return {
     status,
     user,
-    token,
+    accessToken,
     isAuthenticated,
     handleCheckingCredentials,
     handleLogin,

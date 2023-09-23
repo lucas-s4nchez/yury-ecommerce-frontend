@@ -8,7 +8,7 @@ export const PrivatePublicInterceptor = () => {
     },
     (error) => {
       if (error.response) {
-        console.log(error.response.data.error);
+        SnackbarUtilities.error(getValidationError(error.response.data.error));
       } else {
         SnackbarUtilities.error(getValidationError(error.code));
       }

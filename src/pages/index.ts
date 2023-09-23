@@ -1,7 +1,5 @@
 export * from "./Auth/Login";
-export * from "./Auth/Login/models";
 export * from "./Auth/Register";
-export * from "./Auth/Register/models";
 export * from "./Auth";
 export * from "./Cart";
 export * from "./Collections";
