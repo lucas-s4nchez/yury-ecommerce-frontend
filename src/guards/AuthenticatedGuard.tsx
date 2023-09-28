@@ -1,6 +1,6 @@
 import { Outlet, Navigate } from "react-router-dom";
 import { useAppSelector } from "../hooks/useStore";
-import { PUBLIC_ROUTES } from "../constants/routes";
+import { AUTH_ROUTES } from "../constants/routes";
 import { AuthState } from "../types";
 
 const AuthenticatedGuard: React.FC = () => {
@@ -8,7 +8,7 @@ const AuthenticatedGuard: React.FC = () => {
   return status === AuthState.AUTHENTICATED ? (
     <Outlet />
   ) : (
-    <Navigate to={PUBLIC_ROUTES.LOGIN} />
+    <Navigate to={AUTH_ROUTES.LOGIN} />
   );
 };
 

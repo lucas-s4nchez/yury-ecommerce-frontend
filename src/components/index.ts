@@ -1,3 +1,4 @@
+export * from "./AuthProvider";
 export * from "./Carousel";
 export * from "./FilterableProductList";
 export * from "./Footer";

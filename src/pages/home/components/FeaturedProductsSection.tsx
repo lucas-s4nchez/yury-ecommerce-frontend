@@ -1,8 +1,8 @@
 import { Alert, Box, Skeleton, Typography } from "@mui/material";
 import { ResponsiveType } from "react-multi-carousel";
 import { MultiCarousel, SmallProductCard } from "../../../components";
-import { useFetchProducts } from "../../../hooks";
-import { getFeaturedProducts } from "../../../services/products.service";
+import { getFeaturedProductsSWR } from "../../../services/products.service";
+import { useProducts } from "../../../hooks/useProducts";
 
 const breakpoints: ResponsiveType = {
   desktop: {
@@ -44,7 +44,11 @@ const SkeletonLoader: React.FC = () => {
 };
 
 export const FeaturedProductsSection: React.FC = () => {
-  const { isLoadingProducts, products } = useFetchProducts(getFeaturedProducts);
+  const { products, isLoadingProducts } = useProducts(
+    "http://localhost:8080/api/searchProducts",
+    "featuredProducts",
+    getFeaturedProductsSWR
+  );
 
   return (
     <Box sx={{ marginBlock: 5 }}>

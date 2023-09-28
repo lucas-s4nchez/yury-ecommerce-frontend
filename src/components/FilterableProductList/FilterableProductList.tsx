@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Container,
   Grid,
@@ -14,15 +14,28 @@ import TuneIcon from "@mui/icons-material/Tune";
 
 import { ModalWithFilters } from "./";
 import { ProductSkeleton, SmallProductCard } from "..";
-import { useFetchProducts } from "../../hooks";
 import { formatPrice } from "../../helpers";
+import { useProducts } from "../../hooks/useProducts";
+import { OrderType } from "../../models";
 
 interface IFilterableProductListProps {
-  axiosRequest: () => void;
+  endpointKey: string;
+  fetcher: (
+    url: string,
+    page?: number,
+    order?: OrderType,
+    brand?: string,
+    category?: string,
+    color?: string,
+    size?: string,
+    minPrice?: string,
+    maxPrice?: string
+  ) => Promise<any>;
 }
 
 export const FilterableProductList: React.FC<IFilterableProductListProps> = ({
-  axiosRequest,
+  endpointKey,
+  fetcher,
 }: IFilterableProductListProps) => {
   const [openModal, setOpenModal] = useState(false);
 
@@ -54,7 +67,11 @@ export const FilterableProductList: React.FC<IFilterableProductListProps> = ({
     handleChangeMaxPrice,
     handleResetMaxPrice,
     handleResetAllProductFilters,
-  } = useFetchProducts(axiosRequest);
+  } = useProducts(
+    "http://localhost:8080/api/searchProducts",
+    endpointKey,
+    fetcher
+  );
 
   const handleOpenModal = () => {
     setOpenModal(true);

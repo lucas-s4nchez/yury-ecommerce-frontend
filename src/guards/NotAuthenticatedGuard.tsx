@@ -5,7 +5,7 @@ import { AuthState } from "../types";
 
 const NotAuthenticatedGuard: React.FC = () => {
   const { status } = useAppSelector((store) => store.user);
-  return status === AuthState.NOT_AUTHENTICATED ? (
+  return status !== AuthState.AUTHENTICATED ? (
     <Outlet />
   ) : (
     <Navigate to={PUBLIC_ROUTES.HOME} />

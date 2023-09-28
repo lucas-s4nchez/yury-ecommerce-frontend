@@ -50,7 +50,11 @@ export const getFeaturedProducts = (
   };
 };
 
+export const getFeaturedProductsSWR = (url: string) =>
+  axios.get(url).then((res) => res.data);
+
 export const getMenProducts = (
+  url: string,
   page: number = 1,
   order: OrderType = OrderType.ASC,
   brand?: string,
@@ -59,24 +63,21 @@ export const getMenProducts = (
   size?: string,
   minPrice?: string,
   maxPrice?: string
-) => {
-  const controller = loadAbortAxios();
-  return {
-    call: axios.get(
-      `http://localhost:8080/api/searchProducts?page=${page}&gender=${
+) =>
+  axios
+    .get(
+      `${url}?page=${page}&gender=${
         GenderType.MAN
-      }&order=${order}&brand=${brand}&category=${category}&color=${color}&size=${Number(
-        size
-      )}&minPrice=${Number(minPrice)}&maxPrice=${Number(maxPrice)}`,
-      {
-        signal: controller.signal,
-      }
-    ),
-    controller,
-  };
-};
+      }&order=${order}&brand=${brand}&category=${category}&color=${color}&size=${
+        Number(size) === 0 ? "" : Number(size)
+      }&minPrice=${Number(minPrice) === 0 ? "" : Number(minPrice)}&maxPrice=${
+        Number(maxPrice) === 0 ? "" : Number(maxPrice)
+      }`
+    )
+    .then((res) => res.data);
 
 export const getWomenProducts = (
+  url: string,
   page: number = 1,
   order: OrderType = OrderType.ASC,
   brand?: string,
@@ -85,19 +86,13 @@ export const getWomenProducts = (
   size?: string,
   minPrice?: string,
   maxPrice?: string
-) => {
-  const controller = loadAbortAxios();
-  return {
-    call: axios.get(
-      `http://localhost:8080/api/searchProducts?page=${page}&gender=${
+) =>
+  axios
+    .get(
+      `${url}?page=${page}&gender=${
         GenderType.WOMAN
       }&order=${order}&brand=${brand}&category=${category}&color=${color}&size=${Number(
         size
-      )}&minPrice=${Number(minPrice)}&maxPrice=${Number(maxPrice)}`,
-      {
-        signal: controller.signal,
-      }
-    ),
-    controller,
-  };
-};
+      )}&minPrice=${Number(minPrice)}&maxPrice=${Number(maxPrice)}`
+    )
+    .then((res) => res.data);

@@ -25,7 +25,8 @@ const loginFormInitialValues: LoginFormValues = { email: "", password: "" };
 
 const Login: React.FC = () => {
   const { loading, callEndpoint } = useFetchAndLoad();
-  const { handleCheckingCredentials, handleLogin } = useAuthStore();
+  const { handleCheckingCredentials, handleLogin, handleLogout } =
+    useAuthStore();
 
   useEffect(() => {
     if (loading) {
@@ -33,21 +34,20 @@ const Login: React.FC = () => {
     }
   }, [loading]);
 
-  const onLoginUser = (loginData: any) => {
-    const { accessToken, user } = loginData.data;
-    const logedUser = createUserAdapter(user);
-
-    handleLogin({ accessToken, user: logedUser });
-  };
-
   const { getFieldProps, handleSubmit, errors, touched } =
     useFormik<LoginFormValues>({
       initialValues: loginFormInitialValues,
       validationSchema: loginFormValidationSchema,
       onSubmit: async (values: LoginFormValues) => {
-        const { data } = await callEndpoint(loginUser(values));
-        if (data) {
-          onLoginUser(data);
+        const { data: userData } = await callEndpoint(loginUser(values));
+        console.log(userData);
+        if (userData.data) {
+          const { accessToken, user } = userData.data;
+          const logedUser = createUserAdapter(user);
+
+          handleLogin({ accessToken, user: logedUser });
+        } else {
+          handleLogout();
         }
       },
     });
@@ -117,8 +117,17 @@ const Login: React.FC = () => {
             </Grid>
             <Grid container spacing={2} sx={{ mb: 2, mt: 1 }}>
               <Grid item xs={12}>
-                <Button type="submit" variant="contained" fullWidth>
-                  <Typography fontWeight={500}>Iniciar sesion</Typography>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  fullWidth
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <Typography fontWeight={500}>Cargando...</Typography>
+                  ) : (
+                    <Typography fontWeight={500}>Iniciar sesion</Typography>
+                  )}
                 </Button>
               </Grid>
             </Grid>

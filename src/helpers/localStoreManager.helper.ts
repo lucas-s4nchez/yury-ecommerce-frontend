@@ -8,7 +8,10 @@ export const saveInLocalStorage = (key: string, value: string) => {
 
 export const getInLocalStorage = (key: string) => {
   const result = localStorage.getItem(key);
-  return !!result && JSON.parse(result);
+  if (typeof result === "string") {
+    return result;
+  }
+  return !!result && typeof result && JSON.parse(result);
 };
 
 export const removeInLocalStorage = (key: string) => {
