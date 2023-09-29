@@ -17,14 +17,24 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { AuthLayout } from "../../../components";
 import { loginFormValidationSchema } from "../../../helpers";
 import { useAuthStore, useFetchAndLoad } from "../../../hooks";
-import { loginUser } from "../../../services/auth.service";
+import { loginUserMutation } from "../../../services/auth.service";
 import { createUserAdapter } from "../../../adapters";
 import { LoginFormValues } from "../../../models";
+import useSWRMutation from "swr/mutation";
 
 const loginFormInitialValues: LoginFormValues = { email: "", password: "" };
 
 const Login: React.FC = () => {
   const { loading, callEndpoint } = useFetchAndLoad();
+  const { trigger, data, error, isMutating } = useSWRMutation(
+    "http://localhost:8080/api/auth/login",
+    loginUserMutation,
+    {
+      onSuccess: (data) => {
+        console.log(data);
+      },
+    }
+  );
   const { handleCheckingCredentials, handleLogin, handleLogout } =
     useAuthStore();
 

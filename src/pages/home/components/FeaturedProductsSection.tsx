@@ -1,8 +1,8 @@
 import { Alert, Box, Skeleton, Typography } from "@mui/material";
 import { ResponsiveType } from "react-multi-carousel";
 import { MultiCarousel, SmallProductCard } from "../../../components";
-import { getFeaturedProductsSWR } from "../../../services/products.service";
 import { useProducts } from "../../../hooks/useProducts";
+import { getFeaturedProducts } from "../../../services";
 
 const breakpoints: ResponsiveType = {
   desktop: {
@@ -47,7 +47,7 @@ export const FeaturedProductsSection: React.FC = () => {
   const { products, isLoadingProducts } = useProducts(
     "http://localhost:8080/api/searchProducts",
     "featuredProducts",
-    getFeaturedProductsSWR
+    getFeaturedProducts
   );
 
   return (

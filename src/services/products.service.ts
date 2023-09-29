@@ -1,8 +1,8 @@
 import axios from "axios";
-import { loadAbortAxios } from "../helpers";
 import { GenderType, OrderType } from "../models";
 
 export const getProducts = (
+  url: string,
   page: number = 1,
   order: OrderType = OrderType.ASC,
   brand?: string,
@@ -11,22 +11,17 @@ export const getProducts = (
   size?: string,
   minPrice?: string,
   maxPrice?: string
-) => {
-  const controller = loadAbortAxios();
-  return {
-    call: axios.get(
-      `http://localhost:8080/api/searchProducts?page=${page}&order=${order}&brand=${brand}&category=${category}&color=${color}&size=${Number(
+) =>
+  axios
+    .get(
+      `${url}?page=${page}&order=${order}&brand=${brand}&category=${category}&color=${color}&size=${Number(
         size
-      )}&minPrice=${Number(minPrice)}&maxPrice=${Number(maxPrice)}`,
-      {
-        signal: controller.signal,
-      }
-    ),
-    controller,
-  };
-};
+      )}&minPrice=${Number(minPrice)}&maxPrice=${Number(maxPrice)}`
+    )
+    .then((res) => res.data);
 
 export const getFeaturedProducts = (
+  url: string,
   page: number = 1,
   order: OrderType = OrderType.ASC,
   brand?: string,
@@ -35,23 +30,14 @@ export const getFeaturedProducts = (
   size?: string,
   minPrice?: string,
   maxPrice?: string
-) => {
-  const controller = loadAbortAxios();
-  return {
-    call: axios.get(
-      `http://localhost:8080/api/searchProducts?page=${page}&featured=${true}&order=${order}&brand=${brand}&category=${category}&color=${color}&size=${Number(
+) =>
+  axios
+    .get(
+      `${url}?page=${page}&featured=${true}&order=${order}&brand=${brand}&category=${category}&color=${color}&size=${Number(
         size
-      )}&minPrice=${Number(minPrice)}&maxPrice=${Number(maxPrice)}`,
-      {
-        signal: controller.signal,
-      }
-    ),
-    controller,
-  };
-};
-
-export const getFeaturedProductsSWR = (url: string) =>
-  axios.get(url).then((res) => res.data);
+      )}&minPrice=${Number(minPrice)}&maxPrice=${Number(maxPrice)}`
+    )
+    .then((res) => res.data);
 
 export const getMenProducts = (
   url: string,

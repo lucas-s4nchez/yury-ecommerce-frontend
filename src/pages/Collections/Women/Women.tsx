@@ -4,7 +4,7 @@ import { FilterableProductList } from "../../../components";
 export const Women: React.FC = () => {
   return (
     <FilterableProductList
-      endpointKey="womenProducts"
+      endpointKey="womenProductList"
       fetcher={getWomenProducts}
     />
   );

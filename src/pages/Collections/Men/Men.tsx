@@ -4,7 +4,7 @@ import { getMenProducts } from "../../../services";
 export const Men: React.FC = () => {
   return (
     <FilterableProductList
-      endpointKey={"menProducts"}
+      endpointKey={"menProductList"}
       fetcher={getMenProducts}
     />
   );
