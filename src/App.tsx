@@ -3,6 +3,7 @@ import { ThemeConfig } from "./theme/ThemeProvider.tsx";
 import { AppRoutes } from "./router/AppRoutes.tsx";
 import { SnackbarUtilitiesConfigurator } from "./helpers/snackbarManager.ts";
 import { SnackbarProvider } from "notistack";
+import { AuthProvider } from "./components";
 
 function App() {
   return (
@@ -10,7 +11,9 @@ function App() {
       <ThemeConfig>
         <SnackbarProvider maxSnack={1}>
           <SnackbarUtilitiesConfigurator />
-          <AppRoutes />
+          <AuthProvider>
+            <AppRoutes />
+          </AuthProvider>
         </SnackbarProvider>
       </ThemeConfig>
     </BrowserRouter>

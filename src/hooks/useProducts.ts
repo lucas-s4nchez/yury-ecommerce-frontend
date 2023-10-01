@@ -86,22 +86,6 @@ export const useProducts = (
     maxPrice,
   ]);
 
-  useEffect(() => {
-    return () => {
-      mutate(
-        `${url}?page=${page}&gender=${
-          GenderType.MAN
-        }&order=${order}&brand=${brand}&category=${category}&color=${color}&size=${
-          Number(size) === 0 ? "" : Number(size)
-        }&minPrice=${Number(minPrice) === 0 ? "" : Number(minPrice)}&maxPrice=${
-          Number(maxPrice) === 0 ? "" : Number(maxPrice)
-        }`,
-        undefined,
-        false
-      );
-    };
-  }, []);
-
   const handleChangeCurrentProductPage = (
     _event: React.ChangeEvent<unknown>,
     value: number

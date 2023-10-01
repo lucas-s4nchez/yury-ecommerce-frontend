@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { useFormik } from "formik";
 import {
@@ -14,51 +14,23 @@ import {
 import EmailIcon from "@mui/icons-material/Email";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { AuthLayout } from "../../../components";
+import { AuthLayout, ScreenLoader } from "../../../components";
 import { loginFormValidationSchema } from "../../../helpers";
-import { useAuthStore, useFetchAndLoad } from "../../../hooks";
-import { loginUserMutation } from "../../../services/auth.service";
-import { createUserAdapter } from "../../../adapters";
+import { useAuthStore } from "../../../hooks";
 import { LoginFormValues } from "../../../models";
-import useSWRMutation from "swr/mutation";
+import { AuthState } from "../../../types";
 
 const loginFormInitialValues: LoginFormValues = { email: "", password: "" };
 
 const Login: React.FC = () => {
-  const { loading, callEndpoint } = useFetchAndLoad();
-  const { trigger, data, error, isMutating } = useSWRMutation(
-    "http://localhost:8080/api/auth/login",
-    loginUserMutation,
-    {
-      onSuccess: (data) => {
-        console.log(data);
-      },
-    }
-  );
-  const { handleCheckingCredentials, handleLogin, handleLogout } =
-    useAuthStore();
-
-  useEffect(() => {
-    if (loading) {
-      handleCheckingCredentials();
-    }
-  }, [loading]);
+  const { status, isLoggingIn, handleAuthentication } = useAuthStore();
 
   const { getFieldProps, handleSubmit, errors, touched } =
     useFormik<LoginFormValues>({
       initialValues: loginFormInitialValues,
       validationSchema: loginFormValidationSchema,
       onSubmit: async (values: LoginFormValues) => {
-        const { data: userData } = await callEndpoint(loginUser(values));
-        console.log(userData);
-        if (userData.data) {
-          const { accessToken, user } = userData.data;
-          const logedUser = createUserAdapter(user);
-
-          handleLogin({ accessToken, user: logedUser });
-        } else {
-          handleLogout();
-        }
+        await handleAuthentication(values);
       },
     });
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -68,6 +40,10 @@ const Login: React.FC = () => {
   const handleMouseDownPassword = (event: React.ChangeEvent<any>) => {
     event.preventDefault();
   };
+
+  if (status === AuthState.CHECKING) {
+    return <ScreenLoader />;
+  }
 
   return (
     <Box
@@ -131,9 +107,9 @@ const Login: React.FC = () => {
                   type="submit"
                   variant="contained"
                   fullWidth
-                  disabled={loading}
+                  disabled={isLoggingIn}
                 >
-                  {loading ? (
+                  {isLoggingIn ? (
                     <Typography fontWeight={500}>Cargando...</Typography>
                   ) : (
                     <Typography fontWeight={500}>Iniciar sesion</Typography>

@@ -24,6 +24,9 @@ export const PrivatePublicInterceptor = () => {
       return response;
     },
     (error) => {
+      if (error.response.status === 401) {
+        //TODO: manejar la revalidacion de token en caso de expiracion
+      }
       if (error.response) {
         SnackbarUtilities.error(getValidationError(error.response.data.error));
       } else {

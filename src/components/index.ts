@@ -8,3 +8,4 @@ export * from "./Header";
 export * from "./Layout";
 export * from "./ProductCards";
 export * from "./ProductSkeleton";
+export * from "./ScreenLoader";
