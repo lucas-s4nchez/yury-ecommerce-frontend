@@ -27,6 +27,7 @@ export const useAuthStore = () => {
     shouldRefreshToken ? "http://localhost:8080/api/auth/refreshToken" : null,
     refreshToken,
     {
+      errorRetryCount: 1,
       onErrorRetry(err, key, config, revalidate, revalidateOpts) {
         if (key === "http://localhost:8080/api/auth/refreshToken") return;
       },

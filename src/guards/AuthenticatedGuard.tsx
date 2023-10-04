@@ -8,7 +8,7 @@ const AuthenticatedGuard: React.FC = () => {
   return status === AuthState.AUTHENTICATED ? (
     <Outlet />
   ) : (
-    <Navigate to={AUTH_ROUTES.LOGIN} />
+    <Navigate to={`${AUTH_ROUTES.AUTH}/`} />
   );
 };
 

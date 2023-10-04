@@ -5,11 +5,20 @@ import {
   getInLocalStorage,
   getValidationError,
 } from "../helpers";
+import { onLogout } from "../redux/states/userSlice";
+import { AppDispatch, dispatch } from "../redux/store";
+
+const clearUser = async (dispatch: AppDispatch) => {
+  return dispatch(onLogout());
+};
 
 export const PrivatePublicInterceptor = () => {
-  const token = getInLocalStorage(LocalStorageKeys.ACCESS_TOKEN);
   const updateHeader = (request: InternalAxiosRequestConfig) => {
-    request.headers.Authorization = `Bearer ${token}`;
+    if (getInLocalStorage(LocalStorageKeys.ACCESS_TOKEN)) {
+      request.headers.Authorization = `Bearer ${getInLocalStorage(
+        LocalStorageKeys.ACCESS_TOKEN
+      )}`;
+    }
 
     return request;
   };
@@ -24,8 +33,11 @@ export const PrivatePublicInterceptor = () => {
       return response;
     },
     (error) => {
-      if (error.response.status === 401) {
-        //TODO: manejar la revalidacion de token en caso de expiracion
+      if (error.response.data.error === "ERR_INVALID_TOKEN") {
+        clearUser(dispatch);
+      }
+      if (error.response.data.error === "ERR_NO_TOKEN_IN_REQUEST") {
+        clearUser(dispatch);
       }
       if (error.response) {
         SnackbarUtilities.error(getValidationError(error.response.data.error));

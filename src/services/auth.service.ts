@@ -7,3 +7,6 @@ export const loginUser = async (
 
 export const refreshToken = async (url: string) =>
   await axios.get(url).then((res) => res.data);
+
+export const getUserInfo = async (url: string) =>
+  await axios.get(url).then((res) => res.data);
